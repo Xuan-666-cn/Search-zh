@@ -859,7 +859,7 @@ struct ContentView: View {
     private var announcement: some View {
         if let text = browser.announcement {
             HStack(spacing: 8) {
-                Text(text)
+                Text(text.said)
                     .foregroundStyle(Palette.ink)
                 // A file just saved: the line shows it in the Finder.
                 if browser.announcedFile != nil {

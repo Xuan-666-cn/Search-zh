@@ -101,7 +101,7 @@ struct SettingsPanel: View {
                     Image(systemName: page.icon)
                         .font(.system(size: 12, weight: .medium))
                         .frame(width: 16)
-                    Text(page.title)
+                    Text(page.title.said)
                         .font(.system(size: 13, weight: on ? .medium : .regular))
                     Spacer(minLength: 0)
                 }
@@ -126,7 +126,7 @@ struct SettingsPanel: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(page.title)
+                Text(page.title.said)
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundStyle(Palette.ink)
                 Spacer()
@@ -166,6 +166,22 @@ struct SettingsPanel: View {
 
     private var general: some View {
         Card {
+            Line("Language", "The words of this app. Search restarts to put new ones in place.") {
+                HStack(spacing: 8) {
+                    if prefs.tongue.pending {
+                        Pill("Relaunch now", filled: true) { Updater.shared.relaunch() }
+                    }
+                    Picker("", selection: $prefs.tongue) {
+                        ForEach(Tongue.allCases) { tongue in
+                            Text(tongue.title.said).tag(tongue)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.menu)
+                    .fixedSize()
+                }
+            }
+            Rule()
             Line(
                 "Open links from other apps",
                 isDefault ? "Search is the default browser on this Mac" : "Mail, Slack and the rest still send links elsewhere"
@@ -308,7 +324,7 @@ struct SettingsPanel: View {
                 Switch(on: $prefs.autocorrect)
             }
             Rule()
-            Line("Peek at a link with a \(prefs.peekClick.title.lowercased())", "Its page opens in a panel over the one you're reading. Escape puts it away; the other button keeps it as a tab") {
+            Line(String(format: "Peek at a link with a %@", prefs.peekClick.said), "Its page opens in a panel over the one you're reading. Escape puts it away; the other button keeps it as a tab") {
                 Switch(on: $prefs.peeksLinks)
             }
             Rule()
@@ -411,7 +427,7 @@ struct SettingsPanel: View {
 
     private var tabs: some View {
         Card {
-            Line("Tabs in a sidebar", "Down the \(prefs.sidePosition.rawValue) instead of across the top. Pull its edge to make it wider; double-click the edge to reset.") {
+            Line("Tabs in a sidebar", String(format: "Down the %@ instead of across the top. Pull its edge to make it wider; double-click the edge to reset.", prefs.sidePosition.said)) {
                 Switch(on: Binding(
                     get: { prefs.sidebar },
                     set: { on in withAnimation(Motion.glide) { prefs.sidebar = on } }
@@ -419,11 +435,11 @@ struct SettingsPanel: View {
             }
             if prefs.sidebar {
                 Rule()
-                Line("Sidebar position", "Tabs down the \(prefs.sidePosition.rawValue) edge of the window") {
+                Line("Sidebar position", String(format: "Tabs down the %@ edge of the window", prefs.sidePosition.said)) {
                     Segmented(options: SidebarPosition.allCases.map { ($0, $0.title) }, selection: $prefs.sidePosition)
                 }
                 Rule()
-                Line("Hide the sidebar until the pointer reaches the edge", "The page takes the whole window; push against its \(prefs.sidePosition.rawValue) edge for the tabs. ⌘S keeps them out.") {
+                Line("Hide the sidebar until the pointer reaches the edge", "The page takes the whole window; push against its \(prefs.sidePosition.said) edge for the tabs. ⌘S keeps them out.") {
                     Switch(on: $prefs.sideHides)
                 }
                 Rule()
@@ -583,7 +599,7 @@ struct SettingsPanel: View {
                 }
                 if !Vault.never.isEmpty {
                     Rule()
-                    Line("Sites never asked", "\(Vault.never.count) sites told to stop offering") {
+                    Line("Sites never asked", String(format: "%d sites told to stop offering", Vault.never.count)) {
                         Pill("Forget") {
                             Vault.never = []
                             browser.announce("Every site can ask again")
@@ -636,7 +652,7 @@ struct SettingsPanel: View {
                 }
                 if let host = browser.hereHost, prefs.shielded, shield.trouble == nil {
                     Rule()
-                    Line("Block on \(host)", "Turn off here if the site breaks — the page reloads") {
+                    Line(String(format: "Block on %@", host), "Turn off here if the site breaks — the page reloads") {
                         Switch(on: Binding(
                             get: { !Shield.shared.isPaused(on: host) },
                             set: { on in
@@ -690,7 +706,7 @@ struct SettingsPanel: View {
                     Text("Search")
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundStyle(Palette.ink)
-                    Text("by Office Commun · version \(Updater.version)")
+                    Text(String(format: "by Office Commun · version %@", Updater.version))
                         .font(.system(size: 12))
                         .foregroundStyle(Palette.muted)
                 }
@@ -755,7 +771,7 @@ struct SettingsPanel: View {
     private var versionDetail: String {
         switch updater.stage {
         case .none:
-            return updater.lastChecked.map { "Checked \($0.formatted(.relative(presentation: .named))) — every hour on its own" }
+            return updater.lastChecked.map { String(format: "Checked %@ — every hour on its own", $0.formatted(.relative(presentation: .named))) }
                 ?? "Checked every hour on its own"
         case .fetching(let next):
             return next.notes ?? "Quietly, in the background — nothing you have set is touched"
@@ -813,7 +829,7 @@ struct SettingsPanel: View {
 
         var body: some View {
             HStack {
-                Text(does)
+                Text(does.said)
                     .font(.system(size: 13))
                     .foregroundStyle(Palette.ink)
                 Spacer()
@@ -841,7 +857,7 @@ struct Segmented<Option: Hashable>: View {
     var body: some View {
         HStack(spacing: 2) {
             ForEach(options, id: \.0) { option, title in
-                Text(title)
+                Text(title.said)
                     .font(.system(size: 11.5, weight: option == selection ? .medium : .regular))
                     .foregroundStyle(option == selection ? Palette.ink : Palette.muted)
                     .lineLimit(1)
@@ -914,7 +930,7 @@ struct Steps: View {
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .help("Back to \(label(home))")
+            .help(String(format: "Back to %@", label(home)))
             Step(icon: "plus", to: above) { value = $0 }
         }
         .padding(.horizontal, 2)
@@ -965,7 +981,7 @@ struct Pill: View {
 
     var body: some View {
         Button(action: action) {
-            Text(title)
+            Text(title.said)
                 .font(.system(size: 11.5))
                 .foregroundStyle(filled ? Palette.ground : tint)
                 .padding(.horizontal, 10)

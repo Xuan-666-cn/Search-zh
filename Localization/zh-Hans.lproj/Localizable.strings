@@ -1,0 +1,1011 @@
+/* Search — 简体中文.
+   键就是代码里的英文原句；没登记的句子保持英文。
+   品牌名 "Search" 不翻译。 */
+
+/* 设置 · 侧栏与页名 */
+"General" = "通用";
+"Tabs" = "标签页";
+"Extensions" = "扩展";
+"Passwords" = "密码";
+"Downloads" = "下载";
+"Privacy" = "隐私";
+"About" = "关于";
+"Done   esc" = "完成   esc";
+
+/* 通用 */
+"Open links from other apps" = "在其他 App 中打开链接";
+"Search is the default browser on this Mac" = "Search 已是这台 Mac 的默认浏览器";
+"Mail, Slack and the rest still send links elsewhere" = "邮件、Slack 等仍会把链接送到别处";
+"Make default" = "设为默认";
+"Search with" = "搜索引擎";
+"Where words that aren't an address go" = "输入的不是网址时，用它来搜索";
+"Custom" = "自定义";
+"Appearance" = "外观";
+"Light, dark, or whatever the Mac is doing — pages follow it too" = "浅色、深色，或跟随系统 —— 网页也会跟随";
+"Light" = "浅色";
+"Dark" = "深色";
+"System" = "跟随系统";
+"Correct spelling as you type" = "输入时自动纠正拼写";
+"macOS's autocorrect inside pages — the one that capitalises for you" = "macOS 在网页内的自动更正 —— 会替你大写字母的那个";
+"Peek at a link with a shift-click" = "Shift + 点击预览链接";
+"Its page opens in a panel over the one you're reading. Escape puts it away; the other button keeps it as a tab" = "网页会浮在当前页之上。按 esc 收起；另一个按钮把它留为一个标签页";
+"Open links from other apps in a small window" = "用小窗口打开其他 App 的链接";
+"To read and close, or keep with Open in Search (⌘O)" = "读完即关，或用“在 Search 中打开”(⌘O) 留下";
+"Show where links go" = "显示链接去向";
+"Point at a link and its address shows at the bottom of the page" = "指针停在链接上时，页面底部显示其网址";
+"Scroll with the middle button" = "中键滚动";
+"Click the wheel on a page, then move the mouse up or down to scroll, as on Windows. Click again to stop" = "在页面上点一下滚轮，再上下移动鼠标即可滚动，如同 Windows。再点一次停止";
+"Pages at 120 Hz" = "网页以 120 Hz 显示";
+"Animations and scrolling in pages at up to 120 frames a second on a screen that can, instead of 60 as in Safari. Uses more battery. Open tabs follow when reloaded" = "在支持的屏幕上，页面动画与滚动最高每秒 120 帧，而非 Safari 式的 60 帧。更耗电。已打开的标签页重新加载后生效";
+"Flick the floating video to a corner" = "轻弹浮动视频到边角";
+"Two fingers on it send it to the corner or edge they point at, instead of pushing it along. Dragging still puts it anywhere" = "两指划过即可把它弹向所指的方向，而非推着走。拖拽仍可放到任意位置";
+"Float the video when you switch tabs" = "切换标签页时浮动视频";
+"A video playing on YouTube and the like comes out into its floating window when you go to another tab, and back when you return. ⇧⌘P still floats one by hand" = "YouTube 等正在播放的视频会在你切走时浮成小窗，回来时归位。⇧⌘P 仍可手动浮动";
+"Float the video when you switch apps" = "切换到其他 App 时浮动视频";
+"A video playing on the site you're on comes out into its floating window as another app comes to the front, and goes back into its tab when you return" = "切到别的 App 时，正在播放的视频浮成小窗；回来后回到原标签页";
+"Let a script drive Search" = "允许脚本操控 Search";
+"A local socket for testing. Its tabs open beside yours with a flask on them and never take over — see ./bench" = "用于测试的本地接口。它的标签页带着烧杯标记开在你旁边，不会接管界面 —— 见 ./bench";
+
+/* 标签页 */
+"Tabs in a sidebar" = "标签页放在侧栏";
+"Down the left instead of across the top. Pull its edge to make it wider; double-click the edge to reset." = "竖排在左侧而非横排在顶部。拖其边缘变宽；双击边缘复位。";
+"Hide the sidebar until the pointer reaches the edge" = "隐藏侧栏，直到指针到达边缘";
+"The page takes the whole window; push against its left edge for the tabs. ⌘S keeps them out." = "页面占满整个窗口；向左推边缘即出标签页。⌘S 可将其收起。";
+"Tabs show" = "标签页显示";
+"Beside the title, and on a pinned square" = "显示在标题旁，固定时显示在小方块上";
+"Letters" = "字母";
+"Site icons" = "网站图标";
+"Show the bookmarks bar" = "显示书签栏";
+"Your bookmarks in a row above the page, folders opening as menus. It folds away with the tabs" = "书签横排在页面上方，文件夹以菜单展开。随标签页一起折叠";
+"Show how far you've read" = "显示阅读进度";
+"The tab you're on fills with grey as you scroll down the page" = "向下滚动时，当前标签页逐渐被灰色填充";
+"Sleep tabs you aren't using" = "闲置标签页休眠";
+"After half an hour away they come back where you left them. Pinned tabs, sound, calls and anything typed stay awake." = "离开半小时后休眠，唤醒时原样恢复。固定页、有声、通话中及已输入内容的页面不休眠。";
+"Spaces" = "空间";
+"Separate sets of tabs, signed in where the others are or starting afresh, switched with ⌃1–⌃9, two fingers sideways over the column, or the space's icon. Mission Control's own ⌃1–⌃9, if you turned them on, take those keys first." = "成组的标签页，可各自登录不同账号或重新开始；用 ⌃1–⌃9、两指横滑或空间图标切换。若开启了 Mission Control 的 ⌃1–⌃9，它们会优先占用这些键。";
+
+/* 密码 */
+"Your passwords" = "你的密码";
+"In the macOS keychain, shown with Touch ID" = "存于 macOS 钥匙串，经 Touch ID 查看";
+"Open…" = "打开…";
+"Offer to save passwords" = "提议保存密码";
+"Asked once per site, never again for a site you refuse" = "每个网站只问一次，拒绝过就不再问";
+"Fill in sign-ins" = "自动填充登录";
+"Click a sign-in box and the accounts kept for the site hang from it" = "点击登录框，该网站保存的账号会悬在下方";
+"Offer passkeys" = "提供通行密钥";
+"Touch ID or an iCloud passkey, on sites that offer one" = "在支持的网站上使用 Touch ID 或 iCloud 通行密钥";
+"Sites never asked" = "已拒绝过的网站";
+"Forget" = "重置";
+"Bring yours in" = "导入你的密码";
+"From Dia, Chrome, Arc, Brave or Edge on this Mac — nothing leaves it" = "来自这台 Mac 上的 Dia、Chrome、Arc、Brave 或 Edge —— 数据不出本机";
+"Import…" = "导入…";
+
+/* 下载 */
+"Save to" = "保存位置";
+"Change…" = "更改…";
+"Ask where to save each file" = "每个文件都询问保存位置";
+
+/* 隐私 */
+"Block ads and trackers" = "拦截广告与追踪器";
+"Third parties whose only job is to watch" = "拦截那些唯一工作就是观察你的第三方";
+"Camera and microphone" = "摄像头与麦克风";
+"What each site was allowed or refused" = "各网站曾被允许或拒绝的记录";
+"Forget choices" = "清除授权";
+"History" = "历史";
+"Every address you have been to" = "你去过的每个网址";
+"Clear" = "清除";
+"Cookies and sign-ins" = "Cookie 与登录状态";
+"Signs you out of every site" = "会登出所有网站";
+"Sign out of everything" = "全部登出";
+"Cache" = "缓存";
+"Only what was fetched to draw pages" = "仅为渲染网页而下载的内容";
+
+/* 关于 */
+"Updates" = "更新";
+"Check now" = "立即检查";
+"Install updates on its own" = "自动安装更新";
+"Off, Search still looks once a day and tells you, and installs only when you press Install" = "关闭后，Search 仍每天检查并告知你，只在你按下“安装”时才安装";
+"Send Feedback" = "发送反馈";
+"Found something wrong?" = "发现问题？";
+"Opens a draft with the version already in it" = "打开一封已填好版本号的问题草稿";
+
+/* 关于 · 快捷键 */
+"Address" = "地址栏";
+"Switch tab" = "切换标签页";
+"New, close, reopen tab" = "新建、关闭、重开标签页";
+"Paste and go" = "粘贴并前往";
+"Copy address" = "复制网址";
+"Next tab, a tab by its place" = "下一个标签页、按位置跳转";
+"Fold the sidebar away" = "收起侧栏";
+"Reading mode" = "阅读模式";
+"Hide something on this site" = "隐藏本站的某个元素";
+"Float the video" = "浮动视频";
+
+/* 标签条 */
+"Bookmarks" = "书签";
+"Back   ⌘[" = "后退   ⌘[";
+"Forward   ⌘]" = "前进   ⌘]";
+"Stop   ⌘." = "停止   ⌘.";
+"Reload   ⌘R" = "重新加载   ⌘R";
+
+/* 标签页右键菜单 */
+"Pin" = "固定";
+"Change Letter" = "更改字母";
+"Unpin" = "取消固定";
+"Rename" = "重命名";
+"Duplicate" = "创建重复标签页";
+"Site Information…" = "网站信息…";
+"Copy Address" = "复制网址";
+"Copy as Markdown Link" = "复制为 Markdown 链接";
+"Mute Tab" = "标签页静音";
+"Unmute Tab" = "取消静音";
+"Close Tab" = "关闭标签页";
+"Close Other Tabs" = "关闭其他标签页";
+"Reopen Closed Tab" = "恢复刚关闭的标签页";
+
+/* 语言选项 */
+"Settings" = "设置";
+"Language" = "语言";
+"The words of this app. Search restarts to put new ones in place." = "界面用语。更改后 Search 需重启才能完全生效。";
+"Follow Mac" = "跟随 Mac";
+"Relaunch now" = "立即重启";
+"Every site can ask again" = "所有网站都可以再次询问了";
+"This is the latest one" = "这已是最新版本";
+"An http or https address with %s where the words go. Until then, Google" = "需要一个含 %s 的 http/https 网址来放置搜索词；未填之前先用 Google";
+"Download" = "下载";
+"Install" = "安装";
+
+/* 菜单栏 */
+"New Tab" = "新建标签页";
+"New Private Tab" = "新建无痕标签页";
+"Duplicate Tab" = "创建重复标签页";
+"Pin Tab" = "固定标签页";
+"Unpin Tab" = "取消固定标签页";
+"Rename Tab" = "重命名标签页";
+"Next Tab" = "下一个标签页";
+"Previous Tab" = "上一个标签页";
+"Search Tabs…" = "搜索标签页…";
+"Open Address…" = "打开网址…";
+"Paste and Go" = "粘贴并前往";
+"Find on Page…" = "在页面上查找…";
+"Find Next" = "查找下一个";
+"Find Previous" = "查找上一个";
+"Reading Mode" = "阅读模式";
+"Float Video" = "浮动视频";
+"Hide Elements…" = "隐藏元素…";
+"Hidden on This Site…" = "本站已隐藏…";
+"Inspect Element" = "检查元素";
+"JavaScript Console" = "JavaScript 控制台";
+"Web Inspector" = "Web 检查器";
+"Print…" = "打印…";
+"Share…" = "分享…";
+"Clear History" = "清除历史记录";
+"Show History…" = "历史记录…";
+"Show Bookmarks…" = "显示书签…";
+"Downloads…" = "下载内容…";
+"Passwords…" = "密码…";
+"Settings…" = "设置…";
+"Welcome…" = "欢迎页…";
+"Send Feedback…" = "发送反馈…";
+"Add This Page" = "添加当前页面";
+"Never here" = "不再在此网站";
+"Allow" = "允许";
+"Don't allow" = "不允许";
+"Not now" = "暂不";
+"Back" = "后退";
+"Forward" = "前进";
+"Actual Size" = "实际大小";
+"Zoom In" = "放大";
+"Zoom Out" = "缩小";
+
+/* 网站卡片 */
+"File" = "文件";
+"Zoom" = "缩放";
+"Actual Size   ⌘0" = "实际大小   ⌘0";
+"Zoom In   ⌘+" = "放大   ⌘+";
+"Zoom Out   ⌘-" = "缩小   ⌘-";
+
+/* 公告条 */
+"Address copied" = "已复制网址";
+"Already a bookmark" = "已在书签中";
+"Bookmarked" = "已加书签";
+"Cache cleared" = "缓存已清除";
+"Camera and microphone choices forgotten" = "已忘记摄像头与麦克风的授权";
+"Couldn't find the sign-in fields anymore" = "再也找不到登录输入框了";
+"Couldn't read that file as text" = "无法将该文件作为文本读取";
+"Download failed" = "下载失败";
+"Download finished" = "下载完成";
+"Everything is back" = "一切都回来了";
+"Hidden — ⌘Z puts it back" = "已隐藏 —— ⌘Z 可撤销";
+"History cleared" = "历史记录已清除";
+"Image copied" = "图片已复制";
+"Link copied" = "链接已复制";
+"Password copied" = "密码已复制";
+"Signed out of everything" = "已登出所有网站";
+"The keychain refused it" = "钥匙串拒绝了访问";
+"Paused" = "已暂停";
+"A tab that keeps nothing" = "什么都不留的标签页";
+"Nothing to read on this page" = "此页没有可阅读的文章";
+"Nothing is playing here" = "这里没有在播放";
+"This page is playing in the floating window." = "此页正以浮动窗口播放。";
+"Try again" = "重试";
+
+/* 加载失败 */
+"No connection." = "没有网络连接。";
+"No site at that address." = "该地址没有网站。";
+"The connection isn't secure." = "连接不安全。";
+"The page didn't load." = "页面未能加载。";
+"The site refused the connection." = "网站拒绝了连接。";
+"The site took too long to answer." = "网站响应太慢。";
+
+/* 隐藏元素 */
+"Hidden on this site — rest on a line to see it" = "本站已隐藏的内容 —— 指针停在某行上可见";
+"Nothing is hidden here." = "这里没有隐藏的内容。";
+"Hide something…" = "隐藏某个元素…";
+"Restore" = "恢复";
+"Restore all" = "全部恢复";
+
+/* 书签 */
+"Bring in from" = "导入来源";
+"Empty" = "空";
+"Move to" = "移动到";
+"No bookmarks yet" = "还没有书签";
+"Nothing kept yet. Add this page with ⇧⌘B, or bring yours in below." = "还没有收藏。按 ⇧⌘B 添加当前页面，或在下方导入你的书签。";
+"Open" = "打开";
+"Remove" = "移除";
+"Top Level" = "顶层";
+
+/* 历史与下载 */
+"Clear list" = "清除列表";
+"Clear…" = "清除…";
+"Show in Finder" = "在 Finder 中显示";
+"Nothing downloaded yet." = "还没有下载内容。";
+"Today" = "今天";
+"Yesterday" = "昨天";
+
+/* 密码面板 */
+"CSV file…" = "CSV 文件…";
+"Copy" = "拷贝";
+"Password" = "密码";
+"Save" = "保存";
+"From your keychain" = "来自你的钥匙串";
+"macOS asks once for that browser's keychain key. Nothing is changed there; everything lands in your own keychain, under Search." = "macOS 会询问一次该浏览器的钥匙串密码。原浏览器中的内容不变；所有密码都存入你自己的钥匙串，归 Search 保管。";
+
+/* 链接预览与小窗 */
+"Close (esc)" = "关闭（esc）";
+"Open as a tab" = "作为标签页打开";
+"Find on page" = "在页面上查找";
+"Open in Search" = "在 Search 中打开";
+"Open in Search   ⌘O" = "在 Search 中打开   ⌘O";
+
+/* 扩展 */
+"Add" = "添加";
+"Add from the Chrome Web Store" = "从 Chrome 应用商店添加";
+"Allow on private tabs" = "允许在无痕标签页中运行";
+"Choose…" = "选择…";
+"Chrome extensions" = "Chrome 扩展";
+"Load an unpacked extension" = "加载已解压的扩展";
+"No extensions yet." = "还没有扩展。";
+"Options" = "选项";
+"Options…" = "选项…";
+"Open the Store" = "打开商店";
+"Or find it in the store and press Add to Search on its page." = "或在商店中找到它，在其页面按下“添加到 Search”。";
+"Paste a link to an extension, or its id" = "粘贴扩展的链接或其 ID";
+"Reload" = "重新加载";
+"Reload from its folder" = "从其文件夹重新加载";
+"Already installed" = "已安装";
+"Couldn't copy the extension" = "无法复制该扩展";
+"None of your extensions is on" = "你没有开启任何扩展";
+"That folder has no manifest.json" = "该文件夹中没有 manifest.json";
+"That isn't a Chrome Web Store link or extension id" = "这不是 Chrome 应用商店链接或扩展 ID";
+"The Chrome Web Store has nothing for that id — it may have been taken down, or only exist for old versions of Chrome" = "Chrome 应用商店里没有这个 ID 对应的扩展 —— 可能已下架，或只支持旧版 Chrome";
+"The extension couldn't be unpacked" = "无法解压该扩展";
+"The extension's signature doesn't hold up" = "扩展的签名校验未通过";
+"What came back isn't a Chrome extension" = "返回的内容不是 Chrome 扩展";
+"Couldn't copy that image" = "无法复制该图片";
+
+/* 空间 */
+"Cancel" = "取消";
+"Create" = "创建";
+"Its own tabs." = "拥有自己的一组标签页。";
+"New space" = "新建空间";
+
+/* 欢迎页 */
+"A browser with nothing in the way. Four megabytes, the engine already in your Mac, and as little around the page as we could manage." = "一个没有挡路的界面的浏览器。四兆体积，用的是你 Mac 里已有的引擎，页面周围能省则省。";
+"A few things worth knowing" = "几点值得了解的";
+"No other browser found on this Mac — nothing to bring." = "这台 Mac 上没有找到其他浏览器 —— 无从导入。";
+"Search is the default browser" = "Search 是默认浏览器";
+"Skip" = "跳过";
+"Tabs wear" = "标签页佩戴";
+"New Tab" = "新标签页";
+"New tab" = "新标签页";
+"Checked once a day on its own" = "每天自动检查一次";
+
+/* ===== 汉化补全 · main@2026-10（1.0.5 之后新增与插值句） ===== */
+
+/* Shortcuts */
+"Shortcuts" = "快捷键";
+
+/* AI */
+"AI" = "AI";
+
+/* On */
+"On" = "开";
+
+/* Off */
+"Off" = "关";
+
+/* Address bar commands */
+"Address bar commands" = "地址栏命令";
+
+/* A word like "settings" or "new tab", typed alone in the addr */
+"A word like \"settings\" or \"new tab\", typed alone in the address field, goes there instead of searching for it" = "在地址栏单独输入 “settings”“new tab” 这类词时，直接前往对应功能，而不是拿它去搜索";
+
+/* Always show the downloads button */
+"Always show the downloads button" = "始终显示下载按钮";
+
+/* Beside the other buttons, even with nothing downloading. Off */
+"Beside the other buttons, even with nothing downloading. Off, it shows only while a file comes in" = "与其他按钮并排显示，即使没有在下载。关闭后只在文件传入时显示";
+
+/* Camera, microphone, location and notifications */
+"Camera, microphone, location and notifications" = "摄像头、麦克风、位置与通知";
+
+/* Every version's notes, newest first */
+"Every version's notes, newest first" = "每个版本的说明，最新的在前";
+
+/* What's new */
+"What's new" = "新变化";
+
+/* What's New… */
+"What's New…" = "新变化…";
+
+/* Off, Search still looks every hour and tells you, and instal */
+"Off, Search still looks every hour and tells you, and installs only when you press Install" = "关闭后，Search 仍每小时检查并告知你，只在你按下“安装”时才安装";
+
+/* Checked every hour on its own */
+"Checked every hour on its own" = "每小时自动检查";
+
+/* Checked %@ — every hour on its own */
+"Checked %@ — every hour on its own" = "检查于 %@ —— 每小时自动检查";
+
+/* by Office Commun · version %@ */
+"by Office Commun · version %@" = "由 Office Commun 出品 · 版本 %@";
+
+/* Search a site from the address field */
+"Search a site from the address field" = "在地址栏直接搜索某个网站";
+
+/* Type the start of a site's name, like red or yout, then Tab, */
+"Type the start of a site's name, like red or yout, then Tab, and what you type next searches that site. Sites you visit that offer a search join the list." = "输入网站名的开头，如 red 或 yout，再按 Tab，之后输入的内容就会在该网站中搜索。你常去且支持搜索的网站会自动加入列表。";
+
+/* Page zoom */
+"Page zoom" = "页面缩放";
+
+/* Where every site starts. ⌘+ and ⌘− are still remembered for  */
+"Where every site starts. ⌘+ and ⌘− are still remembered for each site." = "所有网站的起始缩放。每个网站的 ⌘+ / ⌘− 仍会被单独记住。";
+
+/* Back to %@ */
+"Back to %@" = "回到 %@";
+
+/* Videos wait for a click */
+"Videos wait for a click" = "视频需点击后播放";
+
+/* Videos don't start by themselves, even without sound; they p */
+"Videos don't start by themselves, even without sound; they play when you press play. Tabs already open follow once closed and opened again, or after they've slept" = "视频不会自行播放，无声的也一样；按下播放键才开始。已打开的标签页在关闭重开或休眠唤醒后生效";
+
+/* Turn off here if the site breaks — the page reloads */
+"Turn off here if the site breaks — the page reloads" = "若网站出问题可在此关闭 —— 页面会重新加载";
+
+/* Block on %@ */
+"Block on %@" = "在 %@ 上拦截";
+
+/* Peek at a link with a %@ */
+"Peek at a link with a %@" = "用%@预览链接";
+
+/* Shift-click */
+"Shift-click" = "Shift + 点击";
+
+/* Option-Shift-click */
+"Option-Shift-click" = "Option-Shift + 点击";
+
+/* Option-Command-click */
+"Option-Command-click" = "Option-Command + 点击";
+
+/* Left */
+"Left" = "左侧";
+
+/* Right */
+"Right" = "右侧";
+
+/* Tabs down the %@ edge of the window */
+"Tabs down the %@ edge of the window" = "标签页沿窗口%@排列";
+
+/* Down the %@ instead of across the top. Pull its edge to make */
+"Down the %@ instead of across the top. Pull its edge to make it wider; double-click the edge to reset." = "标签页沿%@排列，而非横排在顶部。拖动边缘可调宽窄；双击边缘复位。";
+
+/* The page takes the whole window; push against its %@ edge fo */
+"The page takes the whole window; push against its %@ edge for the tabs. ⌘S keeps them out." = "页面占满整个窗口；向%@边缘推进可唤出标签栏。⌘S 可保持收起。";
+
+/* As in Safari. Off, sites you rarely open keep their sign-ins */
+"As in Safari. Off, sites you rarely open keep their sign-ins, and trackers inside other sites can follow you across them again, as in Chrome. Private tabs keep it on" = "与 Safari 相同。关闭后，很少打开的网站会保留登录状态，其他网站内的追踪器又能跨站跟随你，如同 Chrome。隐私标签页始终开启";
+
+/* Prevent cross-site tracking */
+"Prevent cross-site tracking" = "防止跨站追踪";
+
+/* What each site was allowed or refused, and the sites whose v */
+"What each site was allowed or refused, and the sites whose videos don't float" = "各网站曾被允许或拒绝的记录，以及不浮动视频的网站";
+
+/* Let sites ask to send notifications */
+"Let sites ask to send notifications" = "允许网站请求发送通知";
+
+/* A site asks on a card over its page, and only one you allow  */
+"A site asks on a card over its page, and only one you allow reaches your Mac's notifications. Private tabs are never asked" = "网站会在页面上的卡片里询问，只有你允许的才会送达 Mac 的通知。隐私标签页从不被询问";
+
+/* %d sites told to stop offering */
+"%d sites told to stop offering" = "已拒绝 %d 个网站";
+
+/* Sidebar position */
+"Sidebar position" = "侧栏位置";
+
+/* Split View */
+"Split View" = "分屏浏览";
+
+/* Show two tabs side by side. Drag a tab onto a page to pair t */
+"Show two tabs side by side. Drag a tab onto a page to pair them." = "并排显示两个标签页。把标签页拖到另一个页面上即可配对。";
+
+/* Load background tabs when you go to them */
+"Load background tabs when you go to them" = "切换后再加载后台标签页";
+
+/* A link opened behind the page, with ⌘-click or the middle bu */
+"A link opened behind the page, with ⌘-click or the middle button, or a batch of links from another app, waits until you go to its tab. ⇧⌘-click still takes you there at once." = "在后台打开的链接（⌘ 点击、中键，或来自其他应用的一批链接）会等到你切过去才加载。⇧⌘ 点击仍会立即跳转。";
+
+/* New tab position */
+"New tab position" = "新标签页位置";
+
+/* After current */
+"After current" = "当前页之后";
+
+/* Top */
+"Top" = "顶部";
+
+/* Bottom */
+"Bottom" = "底部";
+
+/* After current puts a link beside the tab you're on, and ⌘T's */
+"After current puts a link beside the tab you're on, and ⌘T's new tab at the end. Pins stay first; a link from a group stays in it." = "“当前页之后”把链接开在你所在标签页旁，⌘T 的新页放在末尾。固定页始终在最前；分组里的链接留在组内。";
+
+/* Close tabs you leave alone */
+"Close tabs you leave alone" = "自动关闭久未查看的标签页";
+
+/* Counted from when you last left the tab, while Search is qui */
+"Counted from when you last left the tab, while Search is quit too. Pin a tab, name it or put it in a group to keep it; private tabs, sound, calls and anything typed stay. ⇧⌘T and History bring one back." = "从你上次离开该页起计时，Search 退出后也在走。固定、命名或分组的页面不会被关；隐私页、有声、通话中和已输入内容的页面保留。⇧⌘T 与历史记录可找回。";
+
+/* How soon tabs sleep */
+"How soon tabs sleep" = "标签页休眠快慢";
+
+/* Later */
+"Later" = "更慢";
+
+/* Normal */
+"Normal" = "正常";
+
+/* Sooner */
+"Sooner" = "更快";
+
+/* A tab left alone lets its page go and comes back where you l */
+"A tab left alone lets its page go and comes back where you left it. Pinned tabs, sound, calls and anything typed stay awake." = "闲置标签页会释放页面，唤醒时原样恢复。固定页、有声、通话中及已输入内容的页面不休眠。";
+
+/* Roomier tabs */
+"Roomier tabs" = "更宽的标签页";
+
+/* Taller rows and larger titles in the sidebar */
+"Taller rows and larger titles in the sidebar" = "侧栏行更高、标题更大";
+
+/* Tab groups */
+"Tab groups" = "标签页分组";
+
+/* Named sections in the sidebar. Right-click a tab to start a  */
+"Named sections in the sidebar. Right-click a tab to start a group; click its heading to hide or show its tabs." = "在侧栏为标签页建立命名分区。右键标签页可新建分组；点击分组标题可收起或展开。";
+
+/* Pinned rows */
+"Pinned rows" = "固定行";
+
+/* As in Arc: pins as squares for the sites you live in, pins a */
+"As in Arc: pins as squares for the sites you live in, pins as rows under them for pages you keep, and a line over the rest with Clear. Right-click a tab to pin it as a row." = "如同 Arc：常用网站固定为方块，常驻页面在下方固定为行，其余之上有一条带“清除”的分隔线。右键标签页可选择“行为固定”。";
+
+/* Pins go back home */
+"Pins go back home" = "固定页各回各位";
+
+/* As in Arc: a pinned tab closed with ⌘W, or left open when Se */
+"As in Arc: a pinned tab closed with ⌘W, or left open when Search quits, comes back at the page it was pinned at rather than wherever you went from there." = "如同 Arc：⌘W 关掉的固定页，或退出 Search 时开着的固定页，会回到被固定时的页面，而不是你离开它时看的那页。";
+
+/* Pins in every space */
+"Pins in every space" = "每个空间都有固定页";
+
+/* Keep a pin in every space: right-click it and choose Keep in */
+"Keep a pin in every space: right-click it and choose Keep in Every Space. Each space signs in to it the way that space does." = "把固定页保留在所有空间：右键它并选择“保留在所有空间”。每个空间用它自己的登录状态访问它。";
+
+/* Keys in the tab switcher */
+"Keys in the tab switcher" = "标签切换器快捷键";
+
+/* With ⌃ still held in the ⌃Tab switcher, ⌃W closes the tab pi */
+"With ⌃ still held in the ⌃Tab switcher, ⌃W closes the tab picked, ⌃R reloads it, ⌃M mutes it, and ⌘O takes a small window into your tabs." = "在 ⌃Tab 切换器中按住 ⌃ 时：⌃W 关闭所选页，⌃R 重新加载，⌃M 静音，⌘O 把小窗口收进标签栏。";
+
+/* Keep selected sites awake */
+"Keep selected sites awake" = "让选中的网站保持清醒";
+
+/* Adds Keep This Site Awake to the site card. Chosen sites use */
+"Adds Keep This Site Awake to the site card. Chosen sites use more memory: they neither sleep nor close automatically, even under memory pressure. Private choices last only in that tab." = "在网站卡片中加入“让本站保持清醒”。选中的网站更占内存：即使内存吃紧也不会休眠或自动关闭。隐私标签页中的选择只在该页有效。";
+
+/* New tab in a floating field */
+"New tab in a floating field" = "新标签页用浮起输入框";
+
+/* ⌘T raises the address field over the page you're on, as in A */
+"⌘T raises the address field over the page you're on, as in Arc. Return opens what you typed in a new tab; Escape, ⌘W or a click outside puts it away and leaves the page as it was" = "⌘T 在当前页上方升起地址栏，如同 Arc。回车在新标签页打开所输内容；esc、⌘W 或点击空白处收起输入框，页面保持原样";
+
+/* Leave a new tab when the last tab closes */
+"Leave a new tab when the last tab closes" = "关掉最后一个标签页时留一个新页";
+
+/* Close the last tab that isn't pinned and a new tab takes its */
+"Close the last tab that isn't pinned and a new tab takes its place, ready for an address. Otherwise you land on a pinned tab." = "关闭最后一个非固定标签页后，一个新页会接替它，随时可输网址。否则你会落到某个固定页上。";
+
+/* The page as a card */
+"The page as a card" = "页面以卡片呈现";
+
+/* A little room around the page, with rounded corners. Off, th */
+"A little room around the page, with rounded corners. Off, the page reaches the window's edges" = "页面四周留出空隙并带圆角。关闭后页面直达窗口边缘";
+
+/* Hold a swipe to pick from history */
+"Hold a swipe to pick from history" = "按住滑动可从历史中挑选";
+
+/* Swipe back or forward and keep your fingers down: the pages  */
+"Swipe back or forward and keep your fingers down: the pages that way appear, and moving up or down picks one to go to" = "前后轻扫并保持手指按住：会展开该方向的页面列表，上下移动即可选中其一";
+
+/* Two fingers on it send it to the corner or edge they point a */
+"Two fingers on it send it to the corner or edge they point at, instead of pushing it along; a strong swipe at the side of the screen it is against tucks it in there, a sliver left to bring it back by. Dragging still puts it anywhere" = "两指按住它时，它会朝两指指向的角落或边缘移动，而不是被推着走；在它贴着的屏幕边缘用力一划可把它收纳于此，只留一条边随时拉回。直接拖拽仍可放到任何位置";
+
+/* Start with a fresh window */
+"Start with a fresh window" = "启动时打开全新窗口";
+
+/* Each time Search opens, your pinned tabs are there and last  */
+"Each time Search opens, your pinned tabs are there and last time's other tabs aren't." = "每次打开 Search 时，固定页仍在，上次的其他标签页不再恢复。";
+
+/* Bring things over */
+"Bring things over" = "导入数据";
+
+/* Bookmarks, history, passwords and extensions from another br */
+"Bookmarks, history, passwords and extensions from another browser on this Mac, or from a file it exported" = "从这台 Mac 上的其他浏览器，或它导出的文件，导入书签、历史、密码和扩展";
+
+/* From another browser on this Mac — nothing leaves it */
+"From another browser on this Mac — nothing leaves it" = "来自这台 Mac 上的其他浏览器 —— 数据不出本机";
+
+/* Use AI on pages */
+"Use AI on pages" = "在网页中使用 AI";
+
+/* Ask about this page… */
+"Ask about this page…" = "询问此页面…";
+
+/* Ask About This Page… */
+"Ask About This Page…" = "询问此页面…";
+
+/* Summarize Page */
+"Summarize Page" = "总结页面";
+
+/* Summarize a page, or ask about it, from the View menu. Nothi */
+"Summarize a page, or ask about it, from the View menu. Nothing is sent until you ask" = "从“显示”菜单可总结或询问当前页面。在你开口之前不会发送任何内容";
+
+/* Where it runs */
+"Where it runs" = "它在哪里运行";
+
+/* Reading the page… */
+"Reading the page…" = "正在阅读页面…";
+
+/* Try Again */
+"Try Again" = "重试";
+
+/* Look Again */
+"Look Again" = "再看看";
+
+/* Continue */
+"Continue" = "继续";
+
+/* Sign In… */
+"Sign In…" = "登录…";
+
+/* Key */
+"Key" = "密钥";
+
+/* Model */
+"Model" = "模型";
+
+/* Forget every key */
+"Forget every key" = "忘记所有密钥";
+
+/* Deletes them from this Mac's keychain. A key made by signing */
+"Deletes them from this Mac's keychain. A key made by signing in with OpenRouter still works until you delete it on openrouter.ai" = "会从这台 Mac 的钥匙串中删除。用 OpenRouter 登录生成的密钥仍然有效，直到你在 openrouter.ai 上删除它";
+
+/* This copy of Search can't keep keys safely — it isn't the si */
+"This copy of Search can't keep keys safely — it isn't the signed release. An app on this Mac still works" = "这份 Search 无法安全保存密钥 —— 它不是签名的正式版。这台 Mac 上的其他应用仍可工作";
+
+/* Preparing it for this Mac — about twenty seconds, once */
+"Preparing it for this Mac — about twenty seconds, once" = "正在为这台 Mac 做准备 —— 只需一次，约二十秒";
+
+/* Needs the Apple Silicon version of Search — this copy runs t */
+"Needs the Apple Silicon version of Search — this copy runs translated" = "需要 Apple Silicon 版 Search —— 此版本运行于翻译模式";
+
+/* Downloads (⇧⌘J) */
+"Downloads (⇧⌘J)" = "下载（⇧⌘J）";
+
+/* Bring in… */
+"Bring in…" = "导入…";
+
+/* Bring Things Over… */
+"Bring Things Over…" = "导入数据…";
+
+/* Bring them over… */
+"Bring them over…" = "导入它们…";
+
+/* Done */
+"Done" = "完成";
+
+/* File… */
+"File…" = "文件…";
+
+/* Rename… */
+"Rename…" = "重命名…";
+
+/* New Folder… */
+"New Folder…" = "新建文件夹…";
+
+/* New Folder Inside… */
+"New Folder Inside…" = "在内部新建文件夹…";
+
+/* Show in Folder */
+"Show in Folder" = "在文件夹中显示";
+
+/* Search bookmarks */
+"Search bookmarks" = "搜索书签";
+
+/* Chrome Web Store… */
+"Chrome Web Store…" = "Chrome 应用商店…";
+
+/* Load Unpacked… */
+"Load Unpacked…" = "加载已解压的扩展…";
+
+/* Manage Extensions… */
+"Manage Extensions…" = "管理扩展…";
+
+/* A folder with a manifest.json — your own, or one exported fr */
+"A folder with a manifest.json — your own, or one exported from another browser. Reload picks up what you've changed in it since." = "一个含 manifest.json 的文件夹 —— 你自己的，或从其他浏览器导出的。重新加载会取到其中的最新改动。";
+
+/* From another browser */
+"From another browser" = "来自其他浏览器";
+
+/* Home page */
+"Home page" = "主页";
+
+/* Search's own */
+"Search's own" = "Search 自己的";
+
+/* Need macOS 15.4 or later — the version whose WebKit can run  */
+"Need macOS 15.4 or later — the version whose WebKit can run them." = "需要 macOS 15.4 或更高 —— 其 WebKit 才能运行扩展。";
+
+/* Off by default - a private tab keeps nothing, extensions inc */
+"Off by default - a private tab keeps nothing, extensions included" = "默认关闭 —— 隐私标签页什么都不保留，扩展也不例外";
+
+/* What Chrome, Arc, Brave and the others added from the Chrome */
+"What Chrome, Arc, Brave and the others added from the Chrome Web Store — installed fresh from the store, you say yes to each one" = "Chrome、Arc、Brave 等从 Chrome 应用商店安装的扩展 —— 需从商店重新安装，且每个都要你确认";
+
+/* Change your privacy settings */
+"Change your privacy settings" = "更改你的隐私设置";
+
+/* Manage your downloads */
+"Manage your downloads" = "管理你的下载";
+
+/* Open files it downloads */
+"Open files it downloads" = "打开它下载的文件";
+
+/* Read and change your bookmarks */
+"Read and change your bookmarks" = "读取并修改你的书签";
+
+/* Read and change your history */
+"Read and change your history" = "读取并修改你的历史";
+
+/* See your other extensions */
+"See your other extensions" = "查看你的其他扩展";
+
+/* See your recently closed tabs */
+"See your recently closed tabs" = "查看你最近关闭的标签页";
+
+/* Show notifications */
+"Show notifications" = "显示通知";
+
+/* All profiles */
+"All profiles" = "所有配置";
+
+/* Profile */
+"Profile" = "配置文件";
+
+/* Brought before */
+"Brought before" = "此前已导入";
+
+/* Choose folder… */
+"Choose folder…" = "选择文件夹…";
+
+/* As in Arc: each pinned page a row with its name, under your  */
+"As in Arc: each pinned page a row with its name, under your pins. Turned on, it stays in Settings › Tabs › Pinned rows" = "如同 Arc：每个固定页成为带名称的一行，排在固定区下方。开启后，可在“设置 › 标签页 › 固定行”里保留";
+
+/* Keep them as pinned rows */
+"Keep them as pinned rows" = "把它们保留为固定行";
+
+/* Turn on pinned rows */
+"Turn on pinned rows" = "开启固定行";
+
+/* Looking on this Mac… */
+"Looking on this Mac…" = "正在本机查找…";
+
+/* Nothing in the other browser changes. Passwords go into your */
+"Nothing in the other browser changes. Passwords go into your keychain." = "不会改动其他浏览器里的任何内容。密码会存入你的钥匙串。";
+
+/* Safari — macOS keeps its data from other apps: in Safari, Fi */
+"Safari — macOS keeps its data from other apps: in Safari, File › Export Browsing Data, then bring the file in below." = "Safari —— macOS 不向其他应用开放其数据：请在 Safari 中选择“文件 › 导出浏览记录”，再从下方导入该文件。";
+
+/* Show bookmarks */
+"Show bookmarks" = "显示书签";
+
+/* Show passwords */
+"Show passwords" = "显示密码";
+
+/* Spaces and pinned tabs */
+"Spaces and pinned tabs" = "空间与固定页";
+
+/* Replace what came from %@ before */
+"Replace what came from %@ before" = "替换此前从 %@ 导入的内容";
+
+/* Always allow */
+"Always allow" = "始终允许";
+
+/* Clear Browsing Data… */
+"Clear Browsing Data…" = "清除浏览数据…";
+
+/* Close Both Pages */
+"Close Both Pages" = "关闭两个页面";
+
+/* Close the tabs under the line. Pins and groups stay; ⇧⌘T bri */
+"Close the tabs under the line. Pins and groups stay; ⇧⌘T brings them all back." = "关闭分隔线下的标签页。固定页与分组保留；⇧⌘T 可全部找回。";
+
+/* Darken This Site */
+"Darken This Site" = "调暗此网站";
+
+/* Pause Darkening */
+"Pause Darkening" = "暂停调暗";
+
+/* Darken pages that stay light */
+"Darken pages that stay light" = "调暗仍是浅色的页面";
+
+/* Sites with a dark look of their own already follow it; the r */
+"Sites with a dark look of their own already follow it; the rest are darkened too. ⇧⌘D for the site you're on, ⌥⇧⌘D to pause everywhere" = "已有深色外观的网站顺其自然；其余网站也会被调暗。⇧⌘D 作用于当前网站，⌥⇧⌘D 全局暂停";
+
+/* Downloading Update… */
+"Downloading Update…" = "正在下载更新…";
+
+/* Install Update */
+"Install Update" = "安装更新";
+
+/* Restart to Update */
+"Restart to Update" = "重启以更新";
+
+/* Export as PDF… */
+"Export as PDF…" = "导出为 PDF…";
+
+/* Focus Left Page */
+"Focus Left Page" = "聚焦左侧页面";
+
+/* Focus Right Page */
+"Focus Right Page" = "聚焦右侧页面";
+
+/* New Window */
+"New Window" = "新建窗口";
+
+/* Pin Tab as Row */
+"Pin Tab as Row" = "行为固定";
+
+/* Pin as Row */
+"Pin as Row" = "行为固定";
+
+/* Recently Closed */
+"Recently Closed" = "最近关闭";
+
+/* Recently Visited */
+"Recently Visited" = "最近访问";
+
+/* Reload Page */
+"Reload Page" = "重新加载页面";
+
+/* Reload Page From Origin */
+"Reload Page From Origin" = "从源站重新加载";
+
+/* Separate Split Tabs */
+"Separate Split Tabs" = "分开分屏标签页";
+
+/* Split Current Page */
+"Split Current Page" = "拆分当前页面";
+
+/* Swap Pages */
+"Swap Pages" = "交换页面";
+
+/* Show Bookmarks Bar */
+"Show Bookmarks Bar" = "显示书签栏";
+
+/* Show Substitutions */
+"Show Substitutions" = "显示替换建议";
+
+/* Substitutions */
+"Substitutions" = "替换建议";
+
+/* Show Tabs in Sidebar */
+"Show Tabs in Sidebar" = "在侧栏显示标签页";
+
+/* Stop Sound in Tab */
+"Stop Sound in Tab" = "停止标签页声音";
+
+/* Tab */
+"Tab" = "标签";
+
+/* Stop */
+"Stop" = "停止";
+
+/* Recording */
+"Recording" = "录制中";
+
+/* Close Find on Page */
+"Close Find on Page" = "关闭页面查找";
+
+/* Search options */
+"Search options" = "搜索选项";
+
+/* Match case */
+"Match case" = "区分大小写";
+
+/* Whole words */
+"Whole words" = "全字匹配";
+
+/* Match uppercase and lowercase letters exactly. */
+"Match uppercase and lowercase letters exactly." = "严格区分字母大小写。";
+
+/* Match complete words. This option is unavailable for PDF pag */
+"Match complete words. This option is unavailable for PDF pages." = "只匹配完整的单词。此选项在 PDF 页面不可用。";
+
+/* Next match */
+"Next match" = "下一个匹配项";
+
+/* Previous match */
+"Previous match" = "上一个匹配项";
+
+/* Everywhere you have been */
+"Everywhere you have been" = "你去过的所有地方";
+
+/* Search everywhere you have been */
+"Search everywhere you have been" = "搜索你去过的所有地方";
+
+/* Start the download again from the beginning */
+"Start the download again from the beginning" = "从头重新开始下载";
+
+/* Clear Shortcut */
+"Clear Shortcut" = "清除快捷键";
+
+/* Peek at a link */
+"Peek at a link" = "预览链接";
+
+/* Reset All to Defaults */
+"Reset All to Defaults" = "全部恢复默认";
+
+/* Reset to Default */
+"Reset to Default" = "恢复默认";
+
+/* Search commands or keys */
+"Search commands or keys" = "搜索命令或快捷键";
+
+/* Connection is not secure */
+"Connection is not secure" = "连接不安全";
+
+/* Connection is secure */
+"Connection is secure" = "连接安全";
+
+/* Parts of this page are not secure */
+"Parts of this page are not secure" = "此页面部分内容不安全";
+
+/* Don't Float Videos Here */
+"Don't Float Videos Here" = "不在此浮动视频";
+
+/* Keep This Site Awake */
+"Keep This Site Awake" = "让本站保持清醒";
+
+/* Play Sound by Itself */
+"Play Sound by Itself" = "允许自行播放声音";
+
+/* from the next page */
+"from the next page" = "来自下一页";
+
+/* Icon */
+"Icon" = "图标";
+
+/* Or bring in an open tab */
+"Or bring in an open tab" = "或将已打开的标签页拉入";
+
+/* Back to Pinned Page */
+"Back to Pinned Page" = "回到固定页";
+
+/* Copy Addresses */
+"Copy Addresses" = "复制网址";
+
+/* Move to Group */
+"Move to Group" = "移入分组";
+
+/* Move to New Window */
+"Move to New Window" = "移到新窗口";
+
+/* Move to Space */
+"Move to Space" = "移到空间";
+
+/* Move to Window */
+"Move to Window" = "移到窗口";
+
+/* New Group */
+"New Group" = "新建分组";
+
+/* New Space… */
+"New Space…" = "新建空间…";
+
+/* Open in Split View */
+"Open in Split View" = "在分屏中打开";
+
+/* Pages moved to a Space with different sign-ins reopen there. */
+"Pages moved to a Space with different sign-ins reopen there." = "被移到登录状态不同的空间的页面，会在那里重新打开。";
+
+/* Put to Sleep */
+"Put to Sleep" = "休眠";
+
+/* Remove from Group */
+"Remove from Group" = "移出分组";
+
+/* Close Group */
+"Close Group" = "关闭分组";
+
+/* Rename Group */
+"Rename Group" = "重命名分组";
+
+/* Ungroup Tabs */
+"Ungroup Tabs" = "取消分组";
+
+/* From a file another browser exported… */
+"From a file another browser exported…" = "来自其他浏览器导出的文件…";
+
+/* Sidebar */
+"Sidebar" = "侧栏";
+
+/* Tab strip */
+"Tab strip" = "标签条";
+
+/* macOS asks in its own dialog */
+"macOS asks in its own dialog" = "由 macOS 用自己的对话框询问";
+
+/* A sidebar that hides */
+"A sidebar that hides" = "可隐藏的侧栏";
+
+/* AI on pages */
+"AI on pages" = "网页 AI";
+
+/* Bookmarks bar */
+"Bookmarks bar" = "书签栏";
+
+/* Close */
+"Close" = "关闭";
+
+/* Everything that's new… */
+"Everything that's new…" = "查看全部新变化…";
+
+/* Sidebar on the right */
+"Sidebar on the right" = "侧栏在右侧";
+
+/* Search */
+"Search" = "搜索";

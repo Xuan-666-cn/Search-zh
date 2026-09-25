@@ -423,7 +423,7 @@ struct Trouble: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            Text(message)
+            Text(message.said)
                 .font(.system(size: 14))
                 .foregroundStyle(Palette.ink)
             Button("Try again", action: retry)
