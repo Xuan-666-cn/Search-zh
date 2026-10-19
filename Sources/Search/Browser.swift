@@ -2822,6 +2822,12 @@ final class Browser: NSObject, ObservableObject {
             newTab()
             return
         }
+        // (Fork) The same: a named home page is what ⌘T opens, the field
+        // would only sit between it and you.
+        if typedHomePage != nil {
+            newTab()
+            return
+        }
         // Again while it is up: it stays, with what was typed cleared.
         reviewing = false
         cancelTabEdit()
@@ -2833,6 +2839,22 @@ final class Browser: NSObject, ObservableObject {
         focusRequest += 1
     }
 
+    /// (Fork) The page typed in Settings › General › New tab page, read the
+    /// one place: every path that makes a new tab — ⌘T, the replacement a
+    /// close leaves behind, the pin put down over nothing — asks here.
+    var typedHomePage: URL? {
+        let home = prefs.newTabPage.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !home.isEmpty else { return nil }
+        return URL(string: home.contains("://") ? home : "https://\(home)")
+    }
+
+    /// (Fork) The id of this window's scratch tab, blank or the named home
+    /// page. Upstream closes the window when the last tab is blank; a home
+    /// page stands in for that blank, and without the mark the window could
+    /// never be closed by ⌘W: each replacement would load the page again
+    /// and never count as empty.
+    private var homeStandinID: UUID?
+
     func newTab() {
         // On a private tab, a new one is private too: ⌘T from a page that
         // keeps nothing and landing on one that keeps everything is how a
@@ -2843,9 +2865,8 @@ final class Browser: NSObject, ObservableObject {
         }
         // (Fork) A page typed in Settings › General › New tab page answers
         // before an extension's claim: it is the address you wrote yourself.
-        let home = prefs.newTabPage.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !home.isEmpty, let url = URL(string: home.contains("://") ? home : "https://" + home) {
-            open(url, foreground: true)
+        if let url = typedHomePage {
+            homeStandinID = open(url, foreground: true).id
             summoning = false
             rememberSession()
             return
@@ -3015,7 +3036,9 @@ final class Browser: NSObject, ObservableObject {
         }
 
         if tabs.count == 1 {
-            if tab.isBlank {
+            // (Fork) The marked home tab is this window's blank: closing it
+            // closes the window, the same two steps upstream asks of a page.
+            if tab.isBlank || tab.id == homeStandinID {
                 NSApp.keyWindow?.performClose(nil)
             } else {
                 let fresh = Tab(configuration: Web.configuration(space: spaceID))
@@ -3026,6 +3049,13 @@ final class Browser: NSObject, ObservableObject {
                 activeID = fresh.id
                 typed = ""
                 removeEmptyGroup(tab.groupID)
+                // (Fork) and it opens to the named page, as a new tab does.
+                if let home = typedHomePage {
+                    fresh.go(to: home)
+                    homeStandinID = fresh.id
+                } else {
+                    homeStandinID = nil
+                }
             }
             return
         }
@@ -3038,7 +3068,7 @@ final class Browser: NSObject, ObservableObject {
         // place. Off, the neighbour is picked as before (#537).
         if prefs.newTabAfterLast, activeID == tab.id,
            !tabs.contains(where: { $0.id != tab.id && $0.pin == nil }) {
-            if tab.isBlank {
+            if tab.isBlank || tab.id == homeStandinID {   // (Fork) the marked home tab counts as blank
                 NSApp.keyWindow?.performClose(nil)
                 return
             }
@@ -3051,6 +3081,13 @@ final class Browser: NSObject, ObservableObject {
             typed = ""
             removeEmptyGroup(tab.groupID)
             rememberSession()
+            // (Fork) the replacement opens to the named page, as a new tab does.
+            if let home = typedHomePage {
+                fresh.go(to: home)
+                homeStandinID = fresh.id
+            } else {
+                homeStandinID = nil
+            }
             return
         }
 
