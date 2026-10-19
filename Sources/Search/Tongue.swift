@@ -34,6 +34,14 @@ extension String {
 enum Tongue: String, CaseIterable, Identifiable {
     case system, english, chinese
 
+    /// A sentence with holes in it, filled after the lookup: the template is
+    /// resolved through the language files first, so a translated sentence
+    /// can move its `%@`s to wherever it reads well.
+    static func say(_ template: String, _ arguments: CVarArg...) -> String {
+        String(format: NSLocalizedString(template, value: template, comment: ""),
+               arguments: arguments)
+    }
+
     var id: String { rawValue }
 
     var title: String {

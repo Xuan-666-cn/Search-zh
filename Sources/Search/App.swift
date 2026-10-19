@@ -1725,7 +1725,7 @@ private struct ImportProgress: View {
     private var footer: some View {
         HStack {
             if let total = job.total, total > 0 {
-                Text("\(job.completed.formatted()) of \(total.formatted())")
+                Text(Tongue.say("%1$@ of %2$@", job.completed.formatted(), total.formatted()))
                     .font(.system(size: 11))
                     .foregroundStyle(Palette.muted)
             }

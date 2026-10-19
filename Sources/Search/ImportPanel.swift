@@ -306,7 +306,7 @@ struct ImportPanel: View {
             if wantsBookmarks, preview?.bookmarks != 0, let record = ImportRecords.of(source.name) {
                 Rule()
                 let recorded = !record.bookmarkIDs.isEmpty
-                Line("Replace what came from \(source.name) before",
+                Line(Tongue.say("Replace what came from %@ before", source.name),
                      recorded ? "Its bookmarks from \(record.date.formatted(.dateTime.day().month())) go, and these come fresh; passwords only ever add"
                               : "Nothing recorded from \(source.name) yet — only what is new comes") {
                     option($replaceBookmarks, none: !recorded)
@@ -340,7 +340,7 @@ struct ImportPanel: View {
             }
             if !extensions.isEmpty {
                 Rule()
-                Line("Extensions", "\(extensions.count) found — installed fresh from the Chrome Web Store, you say yes to each one") {
+                Line("Extensions", Tongue.say("%d found — installed fresh from the Chrome Web Store, you say yes to each one", extensions.count)) {
                     Switch(on: $wantsExtensions)
                 }
             }

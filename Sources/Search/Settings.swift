@@ -324,7 +324,7 @@ struct SettingsPanel: View {
                 Switch(on: $prefs.autocorrect)
             }
             Rule()
-            Line(String(format: "Peek at a link with a %@", prefs.peekClick.said), "Its page opens in a panel over the one you're reading. Escape puts it away; the other button keeps it as a tab") {
+            Line(Tongue.say( "Peek at a link with a %@", prefs.peekClick.said), "Its page opens in a panel over the one you're reading. Escape puts it away; the other button keeps it as a tab") {
                 Switch(on: $prefs.peeksLinks)
             }
             Rule()
@@ -427,7 +427,7 @@ struct SettingsPanel: View {
 
     private var tabs: some View {
         Card {
-            Line("Tabs in a sidebar", String(format: "Down the %@ instead of across the top. Pull its edge to make it wider; double-click the edge to reset.", prefs.sidePosition.said)) {
+            Line("Tabs in a sidebar", Tongue.say( "Down the %@ instead of across the top. Pull its edge to make it wider; double-click the edge to reset.", prefs.sidePosition.said)) {
                 Switch(on: Binding(
                     get: { prefs.sidebar },
                     set: { on in withAnimation(Motion.glide) { prefs.sidebar = on } }
@@ -435,7 +435,7 @@ struct SettingsPanel: View {
             }
             if prefs.sidebar {
                 Rule()
-                Line("Sidebar position", String(format: "Tabs down the %@ edge of the window", prefs.sidePosition.said)) {
+                Line("Sidebar position", Tongue.say( "Tabs down the %@ edge of the window", prefs.sidePosition.said)) {
                     Segmented(options: SidebarPosition.allCases.map { ($0, $0.title) }, selection: $prefs.sidePosition)
                 }
                 Rule()
@@ -483,7 +483,7 @@ struct SettingsPanel: View {
             Line("Close tabs you leave alone", "Counted from when you last left the tab, while Search is quit too. Pin a tab, name it or put it in a group to keep it; private tabs, sound, calls and anything typed stay. ⇧⌘T and History bring one back.") {
                 Picker("", selection: $prefs.tabLife) {
                     ForEach(TabLife.allCases) { life in
-                        Text(life.title).tag(life)
+                        Text(life.title.said).tag(life)
                     }
                 }
                 .labelsHidden()
@@ -599,7 +599,7 @@ struct SettingsPanel: View {
                 }
                 if !Vault.never.isEmpty {
                     Rule()
-                    Line("Sites never asked", String(format: "%d sites told to stop offering", Vault.never.count)) {
+                    Line("Sites never asked", Tongue.say( "%d sites told to stop offering", Vault.never.count)) {
                         Pill("Forget") {
                             Vault.never = []
                             browser.announce("Every site can ask again")
@@ -652,7 +652,7 @@ struct SettingsPanel: View {
                 }
                 if let host = browser.hereHost, prefs.shielded, shield.trouble == nil {
                     Rule()
-                    Line(String(format: "Block on %@", host), "Turn off here if the site breaks — the page reloads") {
+                    Line(Tongue.say( "Block on %@", host), "Turn off here if the site breaks — the page reloads") {
                         Switch(on: Binding(
                             get: { !Shield.shared.isPaused(on: host) },
                             set: { on in
@@ -706,7 +706,7 @@ struct SettingsPanel: View {
                     Text("Search")
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundStyle(Palette.ink)
-                    Text(String(format: "by Office Commun · version %@", Updater.version))
+                    Text(Tongue.say( "by Office Commun · version %@", Updater.version))
                         .font(.system(size: 12))
                         .foregroundStyle(Palette.muted)
                 }
@@ -771,7 +771,7 @@ struct SettingsPanel: View {
     private var versionDetail: String {
         switch updater.stage {
         case .none:
-            return updater.lastChecked.map { String(format: "Checked %@ — every hour on its own", $0.formatted(.relative(presentation: .named))) }
+            return updater.lastChecked.map { Tongue.say( "Checked %@ — every hour on its own", $0.formatted(.relative(presentation: .named))) }
                 ?? "Checked every hour on its own"
         case .fetching(let next):
             return next.notes ?? "Quietly, in the background — nothing you have set is touched"
@@ -930,7 +930,7 @@ struct Steps: View {
                     .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
-            .help(String(format: "Back to %@", label(home)))
+            .help(Tongue.say( "Back to %@", label(home)))
             Step(icon: "plus", to: above) { value = $0 }
         }
         .padding(.horizontal, 2)

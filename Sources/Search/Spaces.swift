@@ -382,7 +382,7 @@ struct SpaceDot: View {
         }
         .buttonStyle(.plain)
         .onHover { hovering = $0 }
-        .help("\(browser.space.name) — ⌃1–⌃9, or two fingers \(browser.prefs.sidebar ? "sideways" : "up or down") over the tabs, to switch")
+        .help(Tongue.say("%@ — ⌃1–⌃9, or two fingers %@ over the tabs, to switch", browser.space.name, browser.prefs.sidebar ? "sideways".saidNow : "up or down".saidNow))
         .onChange(of: key) { _, now in
             let symbol = symbol
             DispatchQueue.main.async {

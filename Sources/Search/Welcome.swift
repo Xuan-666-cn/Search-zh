@@ -99,14 +99,14 @@ struct WelcomePanel: View {
                             selection: Binding(get: { source ?? sources[0] }, set: { source = $0 })
                         )
                     } else {
-                        Text("From \(sources[0].name)")
+                        Text(Tongue.say("From %@", sources[0].name))
                             .font(.system(size: 13))
                             .foregroundStyle(Palette.muted)
                     }
                     if importsPasswords {
                         Choice("Passwords", "macOS will ask once for that browser's keychain key", on: $wantsPasswords)
                     } else {
-                        Text("Passwords from \((source ?? sources[0]).name) aren't supported yet.")
+                        Text(Tongue.say("Passwords from %@ aren't supported yet.", (source ?? sources[0]).name))
                             .font(.system(size: 13)).foregroundStyle(Palette.muted)
                     }
                     Choice("Bookmarks", "Folders and all, behind the bookmark button", on: $wantsBookmarks)

@@ -177,7 +177,7 @@ struct ExtensionsPage: View {
                 .menuStyle(.borderlessButton)
                 .menuIndicator(.hidden)
                 .fixedSize()
-                .help("More for \(item.name)")
+                .help(Tongue.say("More for %@", item.name))
                 Switch(on: Binding(get: { item.enabled }, set: { extensions.setEnabled(item.id, $0) }))
             }
             .padding(.horizontal, 14)

@@ -270,7 +270,7 @@ private struct SiteOfferRow: View {
     var body: some View {
         HStack(spacing: 10) {
             SiteIcon(site: site)
-            Text("Search \(site.name)")
+            Text(Tongue.say("Search %@", site.name))
                 .font(.system(size: 13))
                 .foregroundStyle(Palette.ink)
                 .lineLimit(1)
@@ -289,7 +289,7 @@ private struct SiteOfferRow: View {
         }
         .onHover { hovering = $0 }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Search \(site.name), press Tab")
+        .accessibilityLabel(Tongue.say("Search %@, press Tab", site.name))
     }
 }
 

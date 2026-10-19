@@ -1008,4 +1008,59 @@
 "Sidebar on the right" = "侧栏在右侧";
 
 /* Search */
-"Search" = "搜索";
+
+/* ===== 第二轮补全 · 插值句 format key 与残余漏网 ===== */
+
+"Site shortcuts" = "网站直达";
+
+"A word before your search goes straight to that site, whatever engine you've picked — \"yt cats\" to YouTube" = "在搜索词前加一个词就能直达该网站，与所选引擎无关 — 如 \"yt cats\" 直达 YouTube";
+
+"Back, forward and reload on the left" = "后退、前进与重新加载放在左侧";
+
+"Beside the window's buttons, before the tabs" = "紧邻窗口按钮，排在标签页之前";
+
+"Search sites and accounts" = "搜索网站与账号";
+
+"%d accounts" = "%d 个账号";
+
+"%1$@ of %2$@" = "已完成 %1$@ / 共 %2$@";
+
+"Remove “%@”…" = "移除“%@”…";
+
+"Remove “%@”?" = "要移除“%@”吗？";
+
+"More for %@" = "%@ 的更多操作";
+
+"%d found — installed fresh from the Chrome Web Store, you say yes to each one" = "发现 %d 个 — 需从 Chrome 应用商店重新安装，且每个都要你确认";
+
+"From %@" = "来自 %@";
+
+"Passwords from %@ aren't supported yet." = "%@ 的密码暂不支持导入。";
+
+"Search %@" = "搜索 %@";
+
+"Search %@, press Tab" = "搜索 %@，按 Tab 键";
+
+"sideways" = "左右横滑";
+
+"up or down" = "上下滑动";
+
+"%@ — ⌃1–⌃9, or two fingers %@ over the tabs, to switch" = "%@ — 按 ⌃1–⌃9，或在标签页上双指%@切换";
+
+"Animations and scrolling in pages at up to 120 frames a second on a screen that can, instead of 60 as in Safari. Uses more battery, so On power keeps it to when the Mac is plugged in" = "在支持的屏幕上，页面动画与滚动最高每秒 120 帧，而非 Safari 式的 60 帧。更耗电，选“接通电源时”则只在插电时启用";
+
+"On power" = "接通电源时";
+
+"Never" = "从不";
+
+"Always" = "始终";
+
+"After two hours away." = "离开两小时后。";
+"After half an hour away." = "离开半小时后。";
+"After ten minutes away." = "离开十分钟后。";
+"After 12 hours" = "12 小时后";
+"After a day" = "1 天后";
+"After a week" = "1 周后";
+"After a month" = "1 个月后";
+"Leftmost" = "最左侧";
+"Rightmost" = "最右侧";

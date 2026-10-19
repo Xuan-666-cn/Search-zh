@@ -1906,12 +1906,12 @@ private struct ExtensionActions: View {
         }
         SwiftUI.Button("Reload") { extensions.reload(id) }
         Divider()
-        SwiftUI.Button("Remove “\(name)”…") { ExtensionActions.confirmRemove(id, name: name, extensions) }
+        SwiftUI.Button(Tongue.say("Remove \"%@\"…", name)) { ExtensionActions.confirmRemove(id, name: name, extensions) }
     }
 
     static func confirmRemove(_ id: String, name: String, _ extensions: Extensions) {
         let alert = NSAlert()
-        alert.messageText = "Remove “\(name)”?"
+        alert.messageText = Tongue.say("Remove \"%@\"?", name)
         alert.informativeText = "Its settings and data go with it."
         alert.addButton(withTitle: "Remove")
         alert.addButton(withTitle: "Cancel")
