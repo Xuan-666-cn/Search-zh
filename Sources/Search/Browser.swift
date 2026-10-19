@@ -1858,6 +1858,14 @@ final class Browser: NSObject, ObservableObject {
             let tab = Tab(configuration: Web.configuration(space: spaceID))
             adopt(tab)
             activeID = tab.id
+            // (Fork) A window restored to nothing is a new tab by another
+            // name: it opens to the named page, and the mark carries on —
+            // without it this tab would never count as the window's blank.
+            if let home = typedHomePage {
+                tab.go(to: home)
+                homeStandinID = tab.id
+                return
+            }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak tab] in
                 guard let tab, tab.isBlank else { return }
                 _ = tab.web
