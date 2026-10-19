@@ -1064,3 +1064,8 @@
 "After a month" = "1 个月后";
 "Leftmost" = "最左侧";
 "Rightmost" = "最右侧";
+
+/* ===== fork · 新标签页设置 ===== */
+"New tab page" = "新标签页";
+"New tabs open blank, the address ready to type" = "新标签页保持空白，地址栏即输即走";
+"New tabs go straight to the page named here. Private tabs stay blank" = "新标签页直接打开此处填写的页面；隐私标签页仍为空白";

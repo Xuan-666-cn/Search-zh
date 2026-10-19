@@ -210,6 +210,22 @@ struct SettingsPanel: View {
                 }
             }
             Rule()
+            // (Fork) The same question the extension chooser above answers,
+            // answered by hand: name a page and ⌘T opens it. Empty leaves
+            // upstream's blank with the address ready.
+            Line("New tab page", prefs.newTabPage.isEmpty
+                ? "New tabs open blank, the address ready to type"
+                : "New tabs go straight to the page named here. Private tabs stay blank") {
+                TextField("https://…", text: $prefs.newTabPage)
+                    .textFieldStyle(.plain)
+                    .foregroundStyle(Palette.ink)
+                    .font(.system(size: 12.5))
+                    .frame(maxWidth: 240)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Palette.wash, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            }
+            Rule()
             // What ⌘T opens to, and the way back after an extension took
             // it. Only there while an extension offers a page; it brings
             // its own hairline.

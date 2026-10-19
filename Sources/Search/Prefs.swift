@@ -177,6 +177,12 @@ final class Preferences: ObservableObject {
     @Published var customEngine: String {
         didSet { store.set(customEngine, forKey: "search.custom") }
     }
+    /// (Fork) The page ⌘T opens to, typed by hand. Empty, as upstream, is
+    /// the blank with the address ready; private tabs never take it, and a
+    /// page named here answers before an extension's claim on new tabs.
+    @Published var newTabPage: String {
+        didSet { store.set(newTabPage, forKey: "newtab.page") }
+    }
     /// Shortcuts to a site's own search, ahead of the default engine (see
     /// Keyword.swift). Empty until someone adds one.
     @Published var keywords: [Keyword] {
@@ -547,6 +553,7 @@ final class Preferences: ObservableObject {
         glyph = store.string(forKey: "glyph").flatMap(Glyph.init) ?? .letters
         engine = store.string(forKey: "search.engine").flatMap(Engine.init) ?? .standard
         customEngine = store.string(forKey: "search.custom") ?? ""
+        newTabPage = store.string(forKey: "newtab.page") ?? ""
         keywords = store.data(forKey: "search.keywords")
             .flatMap { try? JSONDecoder().decode([Keyword].self, from: $0) } ?? []
         keepsSitesAwake = store.bool(forKey: "tabs.keepAwake")

@@ -2841,6 +2841,15 @@ final class Browser: NSObject, ObservableObject {
             newShyTab()
             return
         }
+        // (Fork) A page typed in Settings › General › New tab page answers
+        // before an extension's claim: it is the address you wrote yourself.
+        let home = prefs.newTabPage.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !home.isEmpty, let url = URL(string: home.contains("://") ? home : "https://" + home) {
+            open(url, foreground: true)
+            summoning = false
+            rememberSession()
+            return
+        }
         // An extension's new tab page, if one asked and you said yes. One
         // added since that also asks is still asked, over the page it would
         // take the place of: which one has new tabs stays yours to say.
