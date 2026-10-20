@@ -8,11 +8,23 @@ name: zh release
 # The build is ad-hoc signed (no Developer ID): the fork's updater accepts
 # it on the archive's sha256 from the appcast, and the appcast names this
 # workflow's own upload URLs, so the loop closes without Apple's chain.
+#
+# A push moves two files: the ZIP the updater installs from, and the feed that
+# points at it. The disk image — the one for people installing by hand, which
+# nothing on this Mac ever downloads — keeps whatever the tag already holds and
+# is rebuilt only by a run started by hand with "dmg" checked. The feed still
+# names its URL, because Updater.swift refuses a release that has no dmg field
+# at all; its hash is left out, which the app reads as "no image to check".
 
 on:
   push:
     branches: [zh]
   workflow_dispatch:
+    inputs:
+      dmg:
+        description: 'Rebuild the disk image (Search.dmg) as well as the ZIP and the feed'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,6 +39,9 @@ jobs:
         env:
           SEARCH_DOWNLOAD_URL: https://github.com/${{ github.repository }}/releases/download/zh-latest
         run: |
+          # SEARCH_NO_DMG: skip the image, keep the feed's URL pointing at the
+          # one the tag already serves. Only a hand-started run rebuilds it.
+          if [ "${{ inputs.dmg }}" != "true" ]; then export SEARCH_NO_DMG=1; fi
           ./build.sh release dmg
           # The appcast must name the very files being uploaded: fail early
           # on a mismatch rather than publish a feed pointing at nothing.
@@ -44,4 +59,10 @@ jobs:
           gh release edit zh-latest \
             --title "Search $VERSION (Chinese fork)" \
             --notes "汉化版滚动发布。构建 $SHA，$(date -u +%F)。检查更新：打开 Search，菜单 › 检查更新…"
-          gh release upload zh-latest build/Search.zip build/Search.dmg build/appcast.json --clobber
+          # Left out of the upload, the tag's existing Search.dmg stays as it
+          # is — which is what the feed's dmg URL points at on those runs.
+          if [ -f build/Search.dmg ]; then
+            gh release upload zh-latest build/Search.zip build/Search.dmg build/appcast.json --clobber
+          else
+            gh release upload zh-latest build/Search.zip build/appcast.json --clobber
+          fi

@@ -277,6 +277,12 @@ echo "built: $APP ($VERSION, $ARCH, build $BUILD)"
 # dmgbuild is installed into .build the first time, and needs Python 3 and a
 # network then; without it the image is the plain one it always was.
 DMG="$OUT/$NAME.dmg"
+# (fork) SEARCH_NO_DMG leaves the disk image alone: the rolling zh-latest tag
+# keeps serving the one it already has, so an everyday sync moves only the ZIP
+# and the feed. Not indented on purpose — the block below is upstream's.
+if [ -n "${SEARCH_NO_DMG:-}" ]; then
+  echo "skipped: $DMG — SEARCH_NO_DMG is set, so the release keeps the image it has"
+else
 ART="build/installer"
 rm -rf "$ART" "$DMG"
 DMGBUILD=".build/dmgbuild/bin/dmgbuild"
@@ -303,6 +309,7 @@ fi
 rm -rf "$ART"
 [ -n "$IDENTITY" ] && codesign --force --timestamp --sign "$IDENTITY" "$DMG"
 echo "packed: $DMG"
+fi
 
 # The ZIP is what the updater fetches, and its hash is what the updater
 # checks before opening it.
@@ -345,8 +352,11 @@ write_engine() {
   echo "engine: $OUT/ai/$FILE"
 }
 write_appcast() {
-  local DMGSHA
-  DMGSHA="$(shasum -a 256 "$DMG" | cut -d' ' -f1)"
+  # (fork) No image in this build, no hash in the feed: Updater.fetch takes an
+  # empty dmgSha256 as "none", and the URL below still resolves to the image
+  # the rolling tag kept.
+  local DMGSHA=""
+  if [ -f "$DMG" ]; then DMGSHA="$(shasum -a 256 "$DMG" | cut -d' ' -f1)"; fi
   write_engine
   cat > "$OUT/appcast.json" <<JSON
 {
