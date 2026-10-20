@@ -1589,8 +1589,20 @@ final class Browser: NSObject, ObservableObject {
         var batch: UUID? = nil
         /// Of a Clear's tabs, the one you were on, which comes back in front.
         var front = false
+        /// (fork) The page's own history, kept as a sleep keeps one: the tab
+        /// comes back with Back still going back, not only at its address.
+        var memory: Any? = nil
 
         var label: String { title.isEmpty ? Address.pretty(url) : title }
+
+        // (fork) Spelled out since memory joined: history is opaque, and
+        // two ghosts with the same address are the same ghost whatever it
+        // holds.
+        static func == (a: Ghost, b: Ghost) -> Bool {
+            a.id == b.id && a.url == b.url && a.title == b.title && a.index == b.index
+                && a.groupID == b.groupID && a.at == b.at && a.partner == b.partner
+                && a.onLeft == b.onLeft && a.was == b.was && a.batch == b.batch && a.front == b.front
+        }
     }
 
     /// The Clear or Close Group under way, whose tabs are remembered
@@ -3205,14 +3217,15 @@ final class Browser: NSObject, ObservableObject {
     /// tabs by how many, or the one tab (or the window) it always did.
     var reopenTitle: String {
         guard let last = ghosts.last, let batch = last.batch,
-              (Browsers.lastClosedAt ?? .distantPast) <= last.at else { return "Reopen Closed Tab" }
+              (Browsers.lastClosedAt ?? .distantPast) <= last.at else { return "Reopen Closed Tab".saidNow }
         // Clear never takes a tab in a group, so a batch with one is Close
         // Group's, its group still closed or brought back from History.
         if let id = last.groupID, closedGroups[id] != nil || tabGroups.contains(where: { $0.id == id }) {
-            return "Reopen Closed Group"
+            return "Reopen Closed Group".saidNow
         }
         let count = ghosts.filter { $0.batch == batch }.count
-        return count == 1 ? "Reopen Cleared Tab" : "Reopen \(count) Cleared Tabs"
+        return count == 1 ? "Reopen Cleared Tab".saidNow
+            : Tongue.say("Reopen %d Cleared Tabs", count)
     }
 
     /// Everything one Clear or Close Group closed, back as it was: each tab
@@ -3234,7 +3247,7 @@ final class Browser: NSObject, ObservableObject {
             let group = regroup(ghost)
             tab.groupID = group.id
             regrouped = regrouped || group.back
-            tab.restore(url: ghost.url, title: ghost.title)
+            tab.restore(url: ghost.url, title: ghost.title, state: ghost.memory)
             tabs.insert(tab, at: safeInsertionIndex(ghost.index))
             if let was = ghost.was { back[was] = tab }
             if ghost.front { front = tab }
@@ -3269,10 +3282,13 @@ final class Browser: NSObject, ObservableObject {
         leaving()
         tabs.insert(tab, at: safeInsertionIndex(ghost.index))
         if group.back { arrangeGroupedTabs() }
-        activeID = tab.id
-        editing = false
-        typed = ""
-        tab.go(to: ghost.url)
+        // (fork) restore, not go: asleep until shown, and select — which
+        // sets the active tab and wakes it, the way reopen(batch:) does —
+        // brings the page back with its Back list, not a fresh load. The
+        // hand-set activeID is gone: select guards on it, and waking hangs
+        // on it being the *previous* tab.
+        tab.restore(url: ghost.url, title: ghost.title, state: ghost.memory)
+        select(tab)
         // Back into its pair, if the page it was beside is still alone.
         if let id = ghost.partner, let partner = tabs.first(where: { $0.id == id }),
            split(for: partner) == nil, canSplit(tab, with: partner) {
@@ -3299,8 +3315,10 @@ final class Browser: NSObject, ObservableObject {
 
     private func remember(_ tab: Tab, at index: Int, partner: Tab.ID? = nil, onLeft: Bool = false) {
         guard !tab.shy, let url = tab.address else { return }
-        ghosts.append(Ghost(url: url, title: tab.title, index: index, groupID: tab.groupID,
-                            partner: partner, onLeft: onLeft, was: tab.id, batch: batching))
+        var ghost = Ghost(url: url, title: tab.title, index: index, groupID: tab.groupID,
+                          partner: partner, onLeft: onLeft, was: tab.id, batch: batching)
+        ghost.memory = tab.liveState
+        ghosts.append(ghost)
         // Twelve steps back, a Clear counting as one: its tabs come back
         // together or not at all, however many there were.
         var steps = Set<UUID>()

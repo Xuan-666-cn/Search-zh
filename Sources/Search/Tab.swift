@@ -1132,11 +1132,15 @@ final class Tab: ObservableObject, Identifiable {
 
     /// Brought back from the last session: everything the row needs to draw it,
     /// and nothing fetched.
-    func restore(url: URL, title: String, name: String? = nil) {
+    func restore(url: URL, title: String, name: String? = nil, state: Any? = nil) {
         address = url
         self.title = title
         self.name = name
         pending = url
+        // (fork) A tab coming back from the closed list carries its page's
+        // own history, kept the way sleep() keeps one: the wake below then
+        // restores Back with the page instead of only its address.
+        memory = state
         adoptIcon()
     }
 
@@ -1179,6 +1183,13 @@ final class Tab: ObservableObject, Identifiable {
     /// view built to wake it opens the same page, at the same place, with
     /// Back still going back. What was typed and not sent is the one thing
     /// that can't come back, which is why the browser asks `unsaved` first.
+    /// (fork) The history blob sleep() would keep, for a tab about to be
+    /// closed instead: nil mid-load, as a sleep asked mid-load loads plain.
+    var liveState: Data? {
+        guard let built, !built.isLoading else { return nil }
+        return built.interactionState as? Data
+    }
+
     func sleep(picture: Data?) {
         guard let url = address, let built else { return }
         memory = built.interactionState

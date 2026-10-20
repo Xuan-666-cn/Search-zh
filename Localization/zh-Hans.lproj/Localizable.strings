@@ -1069,3 +1069,9 @@
 "New tab page" = "新标签页";
 "New tabs open blank, the address ready to type" = "新标签页保持空白，地址栏即输即走";
 "New tabs go straight to the page named here. Private tabs stay blank" = "新标签页直接打开此处填写的页面；隐私标签页仍为空白";
+
+// (fork) 恢复标签页的菜单标题（动态标题走格式键）
+"Reopen Closed Group" = "恢复刚关闭的标签组";
+"Reopen Cleared Tab" = "恢复刚清空的标签页";
+"Reopen %d Cleared Tabs" = "恢复刚清空的 %d 个标签页";
+"Reopen Window" = "恢复窗口";
