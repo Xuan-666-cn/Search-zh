@@ -98,7 +98,11 @@ struct KeyCombo: Codable, Hashable {
             KeyCombo("q"), KeyCombo("q", option: true), KeyCombo("q", control: true),
             KeyCombo("q", shift: true), KeyCombo("q", shift: true, option: true),
             KeyCombo("h"), KeyCombo("h", option: true), KeyCombo("m"), KeyCombo("m", option: true),
-            KeyCombo("c"), KeyCombo("v"), KeyCombo("x"), KeyCombo("a"), KeyCombo("z"), KeyCombo("z", shift: true),
+            KeyCombo("c"), KeyCombo("v"), KeyCombo("x"), KeyCombo("a"),
+            // (Fork) ⌘Z gives up its undo here: this build hands it to Reopen
+            // Closed Tab. ⇧⌘Z stays the page's redo, and ⌘Z still undoes a
+            // hidden element while pointing (see the interceptor in App.swift).
+            KeyCombo("z", shift: true),
             KeyCombo("`"), KeyCombo("`", shift: true), KeyCombo("f", control: true),
             KeyCombo("space"), KeyCombo("space", command: false, control: true),
             KeyCombo("space", option: true), KeyCombo("space", command: false, option: true, control: true),
@@ -149,7 +153,7 @@ struct Command: Identifiable {
         Command("file.newWindow", "New Window", .file, KeyCombo("n")) { _ in Browsers.newWindow() },
         Command("file.newTab", "New Tab", .file, KeyCombo("t")) { $0.launch() },
         Command("file.newPrivateTab", "New Private Tab", .file, KeyCombo("n", shift: true)) { $0.newShyTab() },
-        Command("file.reopen", "Reopen Closed Tab", .file, KeyCombo("t", shift: true)) { $0.reopen() },
+        Command("file.reopen", "Reopen Closed Tab", .file, KeyCombo("z")) { $0.reopen() },
         Command("file.openAddress", "Open Address…", .file, KeyCombo("l")) { $0.edit() },
         Command("file.closeTab", "Close Tab", .file, KeyCombo("w")) { $0.closeFront() },
         Command("file.import", "Bring Things Over…", .file, nil) { $0.bringingIn = "" },
