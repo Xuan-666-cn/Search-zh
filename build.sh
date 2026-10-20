@@ -56,8 +56,10 @@ APP="$OUT/Search.app"
 NAME="Search"
 VERSION="$(tr -d '[:space:]' < VERSION)"
 # A build number that only ever goes up, so the updater can tell newer from
-# older without parsing version strings.
-BUILD="$(date +%Y%m%d%H%M)"
+# older without parsing version strings. SEARCH_BUILD overrides it — a
+# reproducible or deliberately-older build (testing the update path against
+# a live release) needs to name its own number.
+BUILD="${SEARCH_BUILD:-$(date +%Y%m%d%H%M)}"
 # The oldest macOS this runs on — in the plist, and in the appcast so an
 # older Mac is not handed a build it can't open.
 MINIMUM="14.0"
