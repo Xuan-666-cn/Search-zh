@@ -679,7 +679,9 @@ struct ContentView: View {
                     .contentShape(Rectangle())
                     .onTapGesture { browser.arrangingChrome = false }
                 ChromeLayoutPanel(browser: browser)
-                    .padding(.top, Metrics.strip + 6)
+                    // The same air under the strip as at the window's right —
+                    // measured from the strip's bottom edge, not the window's.
+                    .padding(.top, Metrics.strip + 10)
                     .padding(.trailing, 10)
                     .transition(.scale(scale: 0.97, anchor: .topTrailing).combined(with: .opacity))
             }
