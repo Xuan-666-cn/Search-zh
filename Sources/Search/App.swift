@@ -679,12 +679,19 @@ struct ContentView: View {
                     .contentShape(Rectangle())
                     .onTapGesture { browser.arrangingChrome = false }
                 ChromeLayoutPanel(browser: browser)
-                    // The same air under the strip as at the window's right —
-                    // measured from the strip's bottom edge, not the window's.
+                    // Ten below the strip's black line, the same air the
+                    // card keeps at the window's right. Counted from the
+                    // window's own top — the safe area's is a standard
+                    // title bar's, not this window's grown strip — so the
+                    // line sits at Metrics.strip and the card may well
+                    // cover the bookmarks bar under it. Without the
+                    // ignoresSafeArea below, SwiftUI pads by the safe area
+                    // first and the card hangs forty above where this says.
                     .padding(.top, Metrics.strip + 10)
                     .padding(.trailing, 10)
                     .transition(.scale(scale: 0.97, anchor: .topTrailing).combined(with: .opacity))
             }
+            .ignoresSafeArea()
         }
         if browser.welcoming {
             WelcomePanel(browser: browser, prefs: browser.prefs)
