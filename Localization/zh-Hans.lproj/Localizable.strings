@@ -1075,3 +1075,14 @@
 "Reopen Cleared Tab" = "恢复刚清空的标签页";
 "Reopen %d Cleared Tabs" = "恢复刚清空的 %d 个标签页";
 "Reopen Window" = "恢复窗口";
+
+// (fork) ⌘1–⌘9 解除锁死：设为可配置的命令后的名称
+"Go to Tab 1" = "跳到标签页 1";
+"Go to Tab 2" = "跳到标签页 2";
+"Go to Tab 3" = "跳到标签页 3";
+"Go to Tab 4" = "跳到标签页 4";
+"Go to Tab 5" = "跳到标签页 5";
+"Go to Tab 6" = "跳到标签页 6";
+"Go to Tab 7" = "跳到标签页 7";
+"Go to Tab 8" = "跳到标签页 8";
+"Go to Last Tab" = "跳到最后一个标签页";

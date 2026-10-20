@@ -91,8 +91,10 @@ struct KeyCombo: Codable, Hashable {
     }
 
     /// macOS's own, the ones every text field relies on, and the ones Search
-    /// keeps for itself: ⌘1–⌘9 for tabs, Tab and Escape
+    /// keeps for itself: Tab and Escape
     /// with anything. Not ours to give, and so never taken from the Mac.
+    /// (Fork) ⌘1–⌘9 are off this list: they start as the tab jumps and are
+    /// yours to rebind in Settings, like any other command.
     static func isReserved(_ combo: KeyCombo) -> Bool {
         let system: Set<KeyCombo> = [
             KeyCombo("q"), KeyCombo("q", option: true), KeyCombo("q", control: true),
@@ -108,8 +110,7 @@ struct KeyCombo: Codable, Hashable {
             KeyCombo("space", option: true), KeyCombo("space", command: false, option: true, control: true),
         ]
         if system.contains(combo) || combo.key == "tab" || combo.key == "escape" { return true }
-        let digit = combo.key.count == 1 && ("1"..."9").contains(combo.key)
-        return digit && !combo.option && !combo.shift && combo.command && !combo.control
+        return false
     }
 
     /// Keys an extension never has, wherever Search's own commands are:
@@ -188,6 +189,22 @@ struct Command: Identifiable {
         Command("tabs.forward", "Forward", .tabs, KeyCombo("]")) { $0.forward() },
         Command("tabs.next", "Next Tab", .tabs, KeyCombo("]", shift: true)) { $0.step(1) },
         Command("tabs.previous", "Previous Tab", .tabs, KeyCombo("[", shift: true)) { $0.step(-1) },
+        // (Fork) The tab jumps ⌘1–⌘9, commands like any other since the fork
+        // unlocked them: rebind, clear, or move one to another command in
+        // Settings. The ninth is the last tab, however many; only tabs on
+        // screen count, not those folded away in a group. The interceptor in
+        // App.swift still fires the defaults — see the guard there.
+        Command("tabs.select1", "Go to Tab 1", .tabs, KeyCombo("1")) { $0.select(index: 0) },
+        Command("tabs.select2", "Go to Tab 2", .tabs, KeyCombo("2")) { $0.select(index: 1) },
+        Command("tabs.select3", "Go to Tab 3", .tabs, KeyCombo("3")) { $0.select(index: 2) },
+        Command("tabs.select4", "Go to Tab 4", .tabs, KeyCombo("4")) { $0.select(index: 3) },
+        Command("tabs.select5", "Go to Tab 5", .tabs, KeyCombo("5")) { $0.select(index: 4) },
+        Command("tabs.select6", "Go to Tab 6", .tabs, KeyCombo("6")) { $0.select(index: 5) },
+        Command("tabs.select7", "Go to Tab 7", .tabs, KeyCombo("7")) { $0.select(index: 6) },
+        Command("tabs.select8", "Go to Tab 8", .tabs, KeyCombo("8")) { $0.select(index: 7) },
+        Command("tabs.select9", "Go to Last Tab", .tabs, KeyCombo("9")) { browser in
+            browser.select(index: browser.shownTabs.count - 1)
+        },
         Command("tabs.search", "Search Tabs…", .tabs, KeyCombo("k")) { browser in
             if browser.editing, !browser.offers.isEmpty { browser.stepSummon() } else { browser.summon() }
         },

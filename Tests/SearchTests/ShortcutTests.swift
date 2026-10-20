@@ -41,7 +41,11 @@ final class ShortcutTests: XCTestCase {
         let store = ShortcutStore()
         let original = KeyCombo("2", command: false, control: true)
         XCTAssertFalse(KeyCombo.isReserved(original))
-        XCTAssertTrue(KeyCombo.isReserved(KeyCombo("2")))
+        // (Fork) ⌘2 is no longer the Mac's: it starts as Go to Tab 2 and
+        // can be given to another command, which wins over the tab jump.
+        XCTAssertFalse(KeyCombo.isReserved(KeyCombo("2")))
+        XCTAssertEqual(store.owner(of: KeyCombo("2"), except: "tabs.next")?.id, "tabs.select2")
+        XCTAssertTrue(store.keepsFromExtensions(KeyCombo("2")))
         XCTAssertTrue(KeyCombo.isReserved(KeyCombo("c")))
         XCTAssertEqual(store.owner(of: original, except: "tabs.next")?.id, "spaces.2")
         store.assign(original, to: "tabs.next")
@@ -62,6 +66,23 @@ final class ShortcutTests: XCTestCase {
             modifierFlags: [.control], timestamp: 0, windowNumber: 0, context: nil,
             characters: "&", charactersIgnoringModifiers: "&", isARepeat: false, keyCode: 18))
         XCTAssertEqual(KeyCombo(event: event), KeyCombo("1", command: false, control: true))
+    }
+
+    // (Fork) ⌘1–⌘9 are the tab jumps' starting keys, not a lock: give one
+    // to another command and that command owns the key; the jump is gone
+    // until the default comes back.
+    func testCommandDigitsAreRebindableAndYieldToTheirNewOwner() {
+        let store = ShortcutStore()
+        let jump = KeyCombo("3")
+        XCTAssertEqual(store.key(for: "tabs.select3"), jump)
+        store.assign(jump, to: "tabs.duplicate")
+        XCTAssertNil(store.key(for: "tabs.select3"))
+        XCTAssertEqual(store.customCommand(on: jump)?.id, "tabs.duplicate")
+        // Still not an extension's, wherever it sits.
+        XCTAssertTrue(ShortcutStore().keepsFromExtensions(jump))
+        store.resetAll()
+        XCTAssertEqual(ShortcutStore().key(for: "tabs.select3"), jump)
+        XCTAssertNil(Store.settings.data(forKey: "shortcuts"))
     }
 
     func testPeekChoicePersistsAndInvalidValueKeepsDefault() {

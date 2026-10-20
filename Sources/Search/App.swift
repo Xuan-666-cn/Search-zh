@@ -1501,10 +1501,17 @@ struct ContentView: View {
         // shortcuts dead there; the shortcut belongs to the key, as it does
         // in every other browser. The ninth is the last tab, however many.
         // Only tabs on screen count: not those folded away in a group.
+        // (Fork) These are the defaults now, not the law: the jump fires only
+        // while the key still belongs to its command. Give ⌘3 to another
+        // command, or take it off, and it is that command's or the page's —
+        // the custom pass above already ran and had the say.
         if !shifted, let number = ContentView.digits[event.keyCode] {
+            let id = number == 0 ? "view.actualSize" : "tabs.select\(number)"
             if number == 0 {
+                guard ShortcutStore.shared.key(for: id) == KeyCombo("0") else { return false }
                 browser.resetZoom()
             } else {
+                guard ShortcutStore.shared.key(for: id) == KeyCombo(String(number)) else { return false }
                 browser.select(index: number == 9 ? browser.shownTabs.count - 1 : number - 1)
             }
             return true
