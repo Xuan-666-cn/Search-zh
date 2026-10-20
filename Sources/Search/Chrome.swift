@@ -118,17 +118,22 @@ struct ChromeLayoutPanel: View {
                 Spacer(minLength: 0)
                 Door(icon: "xmark", help: "Done   esc", act: { browser.arrangingChrome = false })
             }
-            Text("Drag to rearrange · click to hide or show")
+            HStack(spacing: 4) {
+                Text("Drag to rearrange · click to hide or show")
+                    .font(.system(size: 10.5))
+                    .foregroundStyle(Palette.muted)
+                Spacer(minLength: 8)
+                // (Fork) The reset rides the hint's row at its right edge,
+                // so the card ends with the tray instead of a loose button.
+                Button("Reset to Default Order") {
+                    withAnimation(Motion.glide) { browser.prefs.chromeOrder = ChromePart.standard }
+                }
+                .buttonStyle(.plain)
                 .font(.system(size: 10.5))
                 .foregroundStyle(Palette.muted)
-            ChromeTray(browser: browser)
-            Button("Reset to Default Order") {
-                withAnimation(Motion.glide) { browser.prefs.chromeOrder = ChromePart.standard }
             }
-            .buttonStyle(.plain)
-            .font(.system(size: 10.5))
-            .foregroundStyle(Palette.muted)
             .onExitCommand { browser.arrangingChrome = false }
+            ChromeTray(browser: browser)
         }
         .padding(10)
         .frame(width: 336, alignment: .leading)
