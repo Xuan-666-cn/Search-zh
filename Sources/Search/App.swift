@@ -1094,7 +1094,12 @@ struct ContentView: View {
         }
         view.spots = [NSWindow.ButtonType.closeButton, .miniaturizeButton, .zoomButton]
             .compactMap { window.standardWindowButton($0) }
-            .map { $0.convert($0.bounds, to: titlebar) }
+            // The small dot draws centred inside its 14-point box (measured),
+            // so the resting circle takes the dot, not the box.
+            .map { button in
+                let box = button.convert(button.bounds, to: titlebar)
+                return box.insetBy(dx: (box.width - Metrics.lightDot) / 2, dy: (box.height - Metrics.lightDot) / 2)
+            }
         view.isHidden = NSApp.isActive
     }
 

@@ -155,24 +155,34 @@ enum Metrics {
     /// 6 at each end, the same inset the pills use inside them. Lights.swift
     /// centres the buttons on this, so the two are one change, not two.
     static let strip: CGFloat = 40
+    /// Fork: the three lights drawn one system step smaller than macOS's own.
+    /// Measured on macOS 27: `controlSize = .small` draws a 10-point circle
+    /// centred in the same 14-point box, so the box — and the click it gets —
+    /// is untouched; only the dot shrinks. The row then pitches itself to the
+    /// dot rather than to AppKit's 23, in the same proportion.
+    static let lightDot: CGFloat = 10
+    static let lightSpacing: CGFloat = 17
     /// With the tabs down the side the page is a card: this far from the
     /// window's edges (and from the column, folded away), and its corners
     /// this round.
     static let cardGap: CGFloat = 8
     static let cardRadius: CGFloat = 10
-    /// Where the first tab starts. The traffic lights run from 19 to 79 —
-    /// measured, not guessed — so this leaves them the same air on their right
-    /// that the window gives them on their left.
+    /// Where the first tab starts. The traffic lights ran from 19 to 79 under
+    /// the full-size dots — measured, not guessed — which left them the same
+    /// air on their right as the window gives on their left. The smaller dots
+    /// end at 65 and the tab did not move up when they shrank, so the air on
+    /// the right is wider now than the one on the left.
     static let lights: CGFloat = 100
     /// Back, forward and reload, at the far end of the row beside the
     /// bookmarks: three doors and the air before the next one.
     static let helm: CGFloat = 3 * 26 + 2 * 2 + 8
     /// The same three doors again, in the sidebar, where they sit right of
     /// the lights instead. The column already has 10 of horizontal padding
-    /// of its own before this even starts, so this is the lights' own edge
-    /// (79) less that padding, plus a sliver of air — not the full breathing
-    /// room a tab row gets, because the sidebar's minimum width doesn't have
-    /// it to give.
+    /// of their own before this even starts, so this was the lights' own edge
+    /// (79 then) less that padding, plus a sliver of air — not the full
+    /// breathing room a tab row gets, because the sidebar's minimum width
+    /// doesn't have it to give. The smaller dots end at 65 and the doors
+    /// kept their place, so the sliver is wider now.
     static let sideLights: CGFloat = 72
     /// The band left at the top when there is no strip: just enough for the
     /// traffic lights to sit in, and nothing else.

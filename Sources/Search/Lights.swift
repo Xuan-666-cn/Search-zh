@@ -53,21 +53,11 @@ final class Lights: NSObject {
     private let moved: () -> Void
     private let centreX: (NSWindow) -> CGFloat
     private var placing = false
-    /// AppKit's own spacing between the three, read once from its first
-    /// layout and kept. Read again on every pass, it was caught while AppKit
-    /// was halfway through putting them back after a resize — one button
-    /// moved, the next not yet — and the three closed up from 23 points apart
-    /// to 13, on top of each other, a spacing each later pass then copied
-    /// from the one before. Reproduced with ./bench resize, 23 Sep 2026.
-    private let spacing: CGFloat
 
     private init(_ window: NSWindow, centreX: @escaping (NSWindow) -> CGFloat, moved: @escaping () -> Void) {
         self.window = window
         self.centreX = centreX
         self.moved = moved
-        let row = [NSWindow.ButtonType.closeButton, .miniaturizeButton].compactMap { window.standardWindowButton($0) }
-        let measured = row.count == 2 ? row[1].frame.minX - row[0].frame.minX : 0
-        spacing = (16...32).contains(measured) ? measured : 20
         super.init()
         let centre = NotificationCenter.default
         for name in [
@@ -100,9 +90,10 @@ final class Lights: NSObject {
         guard buttons.count == 3, let bar = buttons[0].superview, let container = bar.superview else { return false }
         if container.frame.height != Metrics.strip || container.frame.maxY != window.frame.height { return true }
         for (index, button) in buttons.enumerated() {
+            if button.controlSize != .small { return true }
             let size = button.frame.size
             let origin = NSPoint(
-                x: centreX(window) - size.width / 2 + CGFloat(index) * spacing,
+                x: centreX(window) - size.width / 2 + CGFloat(index) * Metrics.lightSpacing,
                 y: bar.bounds.height - Lights.centre.y - size.height / 2
             )
             if button.frame.origin != origin { return true }
@@ -127,11 +118,19 @@ final class Lights: NSObject {
             frame.origin.y = window.frame.height - height
             container.frame = frame
         }
-        // Only the row moves; the spacing is AppKit's, from its first layout.
+        // Only the row moves. Fork: the three are the system's small control
+        // size — the dot shrinks to Metrics.lightDot, centred in the same box
+        // — and the row pitches itself to it rather than to AppKit's 23, so
+        // nothing is read from AppKit's layout any more. (A read is what this
+        // used to make, and ./bench resize caught it halfway through one, the
+        // three closing up on each other; the constant takes that class of
+        // bug with it.) The control size is re-asserted every pass, because
+        // AppKit lays the title bar out again whenever it sees fit.
         for (index, button) in buttons.enumerated() {
+            if button.controlSize != .small { button.controlSize = .small }
             let size = button.frame.size
             let origin = NSPoint(
-                x: centreX(window) - size.width / 2 + CGFloat(index) * spacing,
+                x: centreX(window) - size.width / 2 + CGFloat(index) * Metrics.lightSpacing,
                 y: bar.bounds.height - Lights.centre.y - size.height / 2
             )
             if button.frame.origin != origin { button.setFrameOrigin(origin) }
