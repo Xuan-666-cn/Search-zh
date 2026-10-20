@@ -87,6 +87,8 @@
 "Click a sign-in box and the accounts kept for the site hang from it" = "点击登录框，该网站保存的账号会悬在下方";
 "Offer passkeys" = "提供通行密钥";
 "Touch ID or an iCloud passkey, on sites that offer one" = "在支持的网站上使用 Touch ID 或 iCloud 通行密钥";
+"Needs an Apple entitlement this build doesn't have — off keeps sites to the password" = "这个构建没有苹果的通行密钥权限——关掉它，网站就改用密码登录";
+"macOS was told no — System Settings › Privacy & Security › Passkeys Access for Web Browsers" = "macOS 已拒绝授权——系统设置 › 隐私与安全性 › 浏览器通行密钥访问";
 "Sites never asked" = "已拒绝过的网站";
 "Forget" = "重置";
 "Bring yours in" = "导入你的密码";
