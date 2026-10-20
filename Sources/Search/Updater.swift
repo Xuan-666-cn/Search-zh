@@ -39,13 +39,15 @@ final class Updater: ObservableObject {
         if overridden, let set = ProcessInfo.processInfo.environment["SEARCH_FEED"], let url = URL(string: set) {
             return url
         }
-        // An Intel Mac has a download of its own from 1.0.5 (build.sh,
-        // SEARCH_ARCH=x86_64) and a feed beside it naming only Intel builds,
-        // so neither kind of Mac is ever offered the other's.
+        // (fork) The fork's own releases: a rolling tag every push to zh
+        // publishes to (see .github/workflows). Same host for the feed and
+        // for what it names, so link()'s one-host rule holds as it was.
+        // The officecommun.com feeds are gone — they name official builds
+        // this app would then refuse, or worse, install over the patches.
         #if arch(x86_64)
-        return URL(string: "https://officecommun.com/search/intel/appcast.json")!
+        return URL(string: "https://github.com/Xuan-666-cn/Search-zh/releases/download/zh-latest-intel/appcast.json")!
         #else
-        return URL(string: "https://officecommun.com/search/appcast.json")!
+        return URL(string: "https://github.com/Xuan-666-cn/Search-zh/releases/download/zh-latest/appcast.json")!
         #endif
     }()
 
@@ -301,12 +303,12 @@ final class Updater: ObservableObject {
     }
 
     private static func fetch() async -> Release? {
-        // The feed as Office Commun signed it: appcast.json.zip, next to the
-        // plain one older builds read, holding the same file with its code
-        // signature (build.sh). Only what comes out of it, checked, is read:
-        // a feed a server or a hijacked answer made up is no feed at all.
-        guard let packed = await get(feed.appendingPathExtension("zip"), limit: 1 << 20),
-              let data = await Task.detached(priority: .utility, operation: { Updater.opened(packed) }).value,
+        // (fork) The plain file, over https, from the one host. What the
+        // officecommun feed had was a codesign trust chain to the author's
+        // Developer ID; a fork cannot buy that chain, so the trust here is
+        // the download's own sha256, which Swap.install checks before a
+        // byte is unpacked — a hijacked answer fails the hash and stops.
+        guard let data = await get(feed, limit: 1 << 20),
               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               let version = json["version"] as? String,
               let build = (json["build"] as? Int) ?? Int(json["build"] as? String ?? ""),
@@ -417,10 +419,13 @@ private enum Swap {
 
     static func install(_ release: Updater.Release) async throws {
         let files = FileManager.default
-        // No Team ID on this build means it was signed ad hoc — a development
-        // build. Nothing is ever swapped in under an app that could not be
-        // told apart from anything else.
-        guard let team = teamID(of: target) else { throw Refused.unsignedHere }
+        // (fork) The author's rule was "never swap under an ad-hoc build",
+        // which protected people from development machines. This build IS
+        // the fork's own — ad-hoc signed, no Team ID to have — and the
+        // protection it wants is the sha256 below, not a certificate it
+        // can't own. An app that does have a Team ID keeps the full old
+        // check; only a missing one takes the fork's path.
+        let team = teamID(of: target)
         // The folder the app is in has to take a rename, or nothing here can
         // be done: /Applications owned by another account, a disk image.
         guard files.isWritableFile(atPath: target.deletingLastPathComponent().path) else {
@@ -497,7 +502,7 @@ private enum Swap {
     /// Developer ID authority, issued to the same team as the one running.
     /// A Team ID read from the signature alone is only what the certificate
     /// says, and anyone can make a certificate that says it.
-    private static func verify(_ bundle: URL, team: String) throws {
+    private static func verify(_ bundle: URL, team: String?) throws {
         let plist = bundle.appendingPathComponent("Contents/Info.plist")
         guard let data = try? Data(contentsOf: plist),
               let info = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any]
@@ -508,6 +513,11 @@ private enum Swap {
         guard Int(info["CFBundleVersion"] as? String ?? "") ?? 0 > Updater.build else {
             throw Refused.notNewer
         }
+        // (fork) No team on the running app means there is no certificate
+        // chain either side could honestly check; what stands in for it is
+        // every step before this one — https from the one host, the feed's
+        // sha256 matched on the archive, the same bundle id, a newer build.
+        guard let team else { return }
         var code: SecStaticCode?
         guard SecStaticCodeCreateWithPath(bundle as CFURL, [], &code) == errSecSuccess, let code else {
             throw Refused.unsigned
