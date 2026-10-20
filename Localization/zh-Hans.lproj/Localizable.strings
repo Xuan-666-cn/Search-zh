@@ -57,6 +57,17 @@
 "Site icons" = "网站图标";
 "Show the bookmarks button" = "显示书签按钮";
 "The bookmark icon at the end of the row, or at the foot of the sidebar. Off, ⇧⌘B still opens its card and the Bookmarks menu is unchanged" = "标签行末端的书签图标按钮，侧栏模式下在底部。关闭后 ⇧⌘B 仍会弹出书签卡片，「书签」菜单不受影响";
+"Edit Layout…" = "编辑布局…";
+"Button Layout" = "按钮布局";
+"Drag to rearrange · click to hide or show" = "拖动排序 · 单击隐藏或显示";
+"Edit Button Layout…" = "编辑按钮布局…";
+"Turned off in this layout" = "已在当前布局中隐藏";
+"Reset to Default Order" = "恢复默认顺序";
+"Back & Forward" = "后退·前进";
+"Refresh" = "刷新";
+"Nothing is downloading" = "当前没有下载任务";
+"In the sidebar they stand by the window's buttons; with them on the left, likewise" = "侧栏模式或「放在左侧」时，它们位于窗口按钮旁";
+"Turned off in Settings › Tabs" = "已在设置 › 标签页中关闭";
 "Show the bookmarks bar" = "显示书签栏";
 "Your bookmarks in a row above the page, folders opening as menus. It folds away with the tabs" = "书签横排在页面上方，文件夹以菜单展开。随标签页一起折叠";
 "Show how far you've read" = "显示阅读进度";

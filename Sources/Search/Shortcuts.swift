@@ -178,6 +178,12 @@ struct Command: Identifiable {
         Command("view.ask", "Ask About This Page…", .view, nil) { $0.askAboutPage() },
         Command("view.hide", "Hide Elements…", .view, KeyCombo("h", shift: true)) { $0.toggleHiding() },
         Command("view.hidden", "Hidden on This Site…", .view, KeyCombo("u", shift: true)) { $0.reviewing.toggle() },
+        // (Fork) The row-end buttons. Not only for the case of every door
+        // hidden, no right-click left to open the card from: also the way
+        // to reach it without hunting the corner of the row.
+        Command("view.layout", "Edit Button Layout\u{2026}", .view, nil) { browser in
+            withAnimation(Motion.glide) { browser.arrangingChrome = true }
+        },
         Command("view.zoomIn", "Zoom In", .view, KeyCombo("+")) { $0.zoom(by: 1.1) },
         Command("view.zoomOut", "Zoom Out", .view, KeyCombo("-")) { $0.zoom(by: 1 / 1.1) },
         Command("view.actualSize", "Actual Size", .view, KeyCombo("0")) { $0.resetZoom() },

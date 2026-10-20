@@ -670,6 +670,20 @@ struct ContentView: View {
             sheet { BookmarksPanel(browser: browser, bookmarks: browser.bookmarks) }
                 close: { browser.bookmarking = false }
         }
+        if browser.arrangingChrome {
+            // (Fork) The row-end buttons, arranged on a small card hung
+            // under the row's end — no dimming, the row changes behind it
+            // as doors drop (see Chrome.swift).
+            ZStack(alignment: .topTrailing) {
+                Color.clear
+                    .contentShape(Rectangle())
+                    .onTapGesture { browser.arrangingChrome = false }
+                ChromeLayoutPanel(browser: browser)
+                    .padding(.top, Metrics.strip + 6)
+                    .padding(.trailing, 10)
+                    .transition(.scale(scale: 0.97, anchor: .topTrailing).combined(with: .opacity))
+            }
+        }
         if browser.welcoming {
             WelcomePanel(browser: browser, prefs: browser.prefs)
                 .ignoresSafeArea()
@@ -819,6 +833,7 @@ struct ContentView: View {
             .animation(Motion.settle, value: browser.tuning)
             .animation(Motion.settle, value: browser.welcoming)
             .animation(Motion.settle, value: browser.bookmarking)
+            .animation(Motion.settle, value: browser.arrangingChrome)
             .animation(Motion.settle, value: browser.managing)
             .animation(Motion.settle, value: browser.newsShowing)
             .animation(Motion.settle, value: browser.notesShowing)

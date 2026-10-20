@@ -381,6 +381,30 @@ final class Preferences: ObservableObject {
     @Published var bookmarkButton: Bool {
         didSet { store.set(bookmarkButton, forKey: "bookmark.button") }
     }
+    /// (Fork) The order of the row-end buttons — downloads, extensions,
+    /// the back/forward pair, the reload and the bookmark — as rearranged
+    /// from their right-click menu (see
+    /// Chrome.swift). Both the top row and the sidebar's foot draw from
+    /// it, each showing the parts it has.
+    @Published var chromeOrder: [ChromePart] {
+        didSet { store.set(chromeOrder.map(\.rawValue), forKey: "chrome.order") }
+    }
+    /// (Fork) Whether the row shows the back/forward pair and the reload
+    /// at all — off, they wait dimmed in the layout card for the click
+    /// that brings them back. On unless turned off; the two are separate
+    /// switches because the card makes them separate doors.
+    @Published var backForwardButton: Bool {
+        didSet { store.set(backForwardButton, forKey: "backforward.button") }
+    }
+    @Published var reloadButton: Bool {
+        didSet { store.set(reloadButton, forKey: "reload.button") }
+    }
+    /// (Fork) The extension doors — the pinned buttons and the puzzle
+    /// alike. Off, extensions live only in the site card until the
+    /// layout card brings this back. On unless turned off.
+    @Published var extensionsButton: Bool {
+        didSet { store.set(extensionsButton, forKey: "extensions.button") }
+    }
     /// Where a link goes, at the bottom of the page while the pointer is on
     /// it (see StatusLine.swift). On unless turned off.
     @Published var showsLinks: Bool {
@@ -648,6 +672,16 @@ final class Preferences: ObservableObject {
         littleLinks = store.bool(forKey: "links.little")
         bookmarksBar = store.bool(forKey: "bookmarks.bar")
         bookmarkButton = store.object(forKey: "bookmark.button") as? Bool ?? true
+        // What was chosen, with anything new (or repeated) put right:
+        // unknown words drop and parts saved by a newer build wait at the
+        // end rather than going missing.
+        var arranged: [ChromePart] = []
+        for part in (store.stringArray(forKey: "chrome.order") ?? []).compactMap(ChromePart.init(rawValue:))
+        where !arranged.contains(part) { arranged.append(part) }
+        chromeOrder = arranged + ChromePart.standard.filter { !arranged.contains($0) }
+        backForwardButton = store.object(forKey: "backforward.button") as? Bool ?? true
+        reloadButton = store.object(forKey: "reload.button") as? Bool ?? true
+        extensionsButton = store.object(forKey: "extensions.button") as? Bool ?? true
         alwaysShowsDownloads = store.bool(forKey: "downloads.button")
         let links = store.object(forKey: "links.show") as? Bool ?? true
         showsLinks = links

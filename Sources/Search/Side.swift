@@ -550,14 +550,31 @@ private struct SideFoot: View {
     var body: some View {
         HStack(spacing: 2) {
             if prefs.usesSpaces { SpaceDot(browser: browser) }
-            ExtensionSlot(edge: .trailing, room: room)
-            BookmarkDoor(browser: browser, arrowEdge: .trailing)
-            // Only while a download is running, and a moment after.
-            FetchDoor(browser: browser, fetches: fetches)
+            ForEach(footParts) { part in
+                ChromeDoor(browser: browser) {
+                    switch part {
+                    case .extensions:
+                        ExtensionSlot(edge: .trailing, room: room)
+                    case .bookmark:
+                        BookmarkDoor(browser: browser, arrowEdge: .trailing)
+                    case .fetch:
+                        FetchDoor(browser: browser, fetches: fetches)
+                    case .backforward, .reload:
+                        EmptyView()  // here they stand by the window's buttons
+                    }
+                }
+            }
             Spacer(minLength: 0)
         }
         .padding(.horizontal, 10)
         .padding(.bottom, 10)
+    }
+
+    /// (Fork) The foot's doors, in the chosen order; the navigation and
+    /// reload stand by the window's buttons in this mode (see Chrome.swift
+    /// for the order and its gaps).
+    private var footParts: [ChromePart] {
+        prefs.chromeOrder.filter { $0.shown(prefs, fetches) }
     }
 
     /// How many pinned extensions fit beside the doors that stay. Every door

@@ -26,6 +26,13 @@ struct TabBar: View {
     /// How wide the doors at the far end are, extension buttons included.
     @State private var doors: CGFloat = 0
 
+    /// (Fork) The far-end doors there is room for, in the chosen order.
+    /// A door off the row keeps its gap in the order and returns to the
+    /// same place (see Chrome.swift).
+    private var stripeParts: [ChromePart] {
+        browser.prefs.chromeOrder.filter { $0.shown(browser.prefs, browser.fetches) }
+    }
+
     var body: some View {
         // A GeometryReader is only here to measure the width. Its content is
         // put in a stack of its own and told to fill it: left to itself a
@@ -157,16 +164,26 @@ struct TabBar: View {
 
                     Spacer(minLength: 0)
 
-                    // Back, forward, reload, and the bookmarks, at the far end
-                    // of the row. The dropdown hangs from the last one.
+                    // Back, forward, reload, and the bookmarks, at the far
+                    // end of the row, in the order the layout card put
+                    // them — right-click any of them opens that card.
                     HStack(spacing: Metrics.tabGap) {
-                        // Only while a download is running, and a moment after.
-                        FetchDoor(browser: browser, fetches: browser.fetches)
-                        ExtensionSlot()
-                        if !browser.prefs.navigationLeft {
-                            Helm(browser: browser).padding(.trailing, 8)
+                        ForEach(stripeParts) { part in
+                            ChromeDoor(browser: browser) {
+                                switch part {
+                                case .fetch:
+                                    FetchDoor(browser: browser, fetches: browser.fetches)
+                                case .extensions:
+                                    ExtensionSlot()
+                                case .backforward:
+                                    BackForward(browser: browser)
+                                case .reload:
+                                    ReloadDoor(browser: browser)
+                                case .bookmark:
+                                    BookmarkDoor(browser: browser, arrowEdge: .bottom)
+                                }
+                            }
                         }
-                        BookmarkDoor(browser: browser, arrowEdge: .bottom)
                     }
                     .background {
                         GeometryReader { box in
@@ -474,27 +491,42 @@ struct PinLine: View {
 /// Back, forward, reload. They watch the live tab, not the window: whether
 /// there is anywhere to go back to is the tab's to say, and it changes with
 /// every page. Used here and, beside the traffic lights instead of at the
-/// far end of the row, in the sidebar.
+/// far end of the row, in the sidebar. (Fork) Two doors for the layout
+/// card's sake — the pair and the reload can be put apart — joined back
+/// into one block here, as they have always stood.
 struct Helm: View {
     @ObservedObject var browser: Browser
 
     var body: some View {
+        HStack(spacing: 4) {
+            BackForward(browser: browser)
+            ReloadDoor(browser: browser)
+        }
+    }
+}
+
+/// Back and forward as one unit of the row, greyed together when there is
+/// nowhere to go.
+struct BackForward: View {
+    @ObservedObject var browser: Browser
+
+    var body: some View {
         if let tab = browser.active {
-            Wheel(browser: browser, tab: tab)
+            Pair(browser: browser, tab: tab)
         } else {
-            // Nowhere to go and nothing to reload: the doors stay in place,
-            // greyed, so the row doesn't shift when a tab arrives.
+            // Nowhere to go: the doors stay in place, greyed, so the row
+            // doesn't shift when a tab arrives.
             HStack(spacing: 4) {
                 Door(icon: "chevron.left") {}
                 Door(icon: "chevron.right") {}
-                Door(icon: "arrow.clockwise") {}
             }
             .opacity(0.3)
             .allowsHitTesting(false)
         }
     }
 
-    private struct Wheel: View {
+    /// Watches the tab for anywhere to go, as the whole Helm always did.
+    private struct Pair: View {
         let browser: Browser
         @ObservedObject var tab: Tab
 
@@ -508,28 +540,52 @@ struct Helm: View {
                 Door(icon: "chevron.right", help: "Forward   ⌘]") { browser.forward() }
                     .disabled(!forward)
                     .opacity(forward ? 1 : 0.3)
-                // Reload, or stop while it is still coming.
-                Door(
-                    icon: tab.loading ? "xmark" : "arrow.clockwise",
-                    help: tab.loading ? "Stop   ⌘." : "Reload   ⌘R"
-                ) {
-                    if tab.loading { tab.stop() } else { browser.reload() }
-                }
-                .disabled(tab.isBlank)
-                .opacity(tab.isBlank ? 0.3 : 1)
-                // The menu's second item is the reason for it: ⌥⌘R has no
-                // button. Nothing to offer while the door is Stop.
-                .contextMenu {
-                    if !tab.loading && !tab.isBlank {
-                        Button("Reload Page") { browser.reload() }
-                            .shortcut("view.reload")
-                        Button("Reload Page From Origin") { browser.reload(fromOrigin: true) }
-                            .shortcut("view.reloadOrigin")
-                    }
-                }
             }
             .animation(Motion.quick, value: back)
             .animation(Motion.quick, value: forward)
+        }
+    }
+}
+
+/// Reload, or stop while a page is still coming — on its own since the
+/// layout card, which lets it sit apart from the pair.
+struct ReloadDoor: View {
+    @ObservedObject var browser: Browser
+
+    var body: some View {
+        if let tab = browser.active {
+            One(browser: browser, tab: tab)
+        } else {
+            Door(icon: "arrow.clockwise") {}
+                .opacity(0.3)
+                .allowsHitTesting(false)
+        }
+    }
+
+    /// Watches the tab for whether it is still coming, as always.
+    private struct One: View {
+        let browser: Browser
+        @ObservedObject var tab: Tab
+
+        var body: some View {
+            Door(
+                icon: tab.loading ? "xmark" : "arrow.clockwise",
+                help: tab.loading ? "Stop   ⌘." : "Reload   ⌘R"
+            ) {
+                if tab.loading { tab.stop() } else { browser.reload() }
+            }
+            .disabled(tab.isBlank)
+            .opacity(tab.isBlank ? 0.3 : 1)
+            // The menu's second item is the reason for it: ⌥⌘R has no
+            // button. Nothing to offer while the door is Stop.
+            .contextMenu {
+                if !tab.loading && !tab.isBlank {
+                    Button("Reload Page") { browser.reload() }
+                        .shortcut("view.reload")
+                    Button("Reload Page From Origin") { browser.reload(fromOrigin: true) }
+                        .shortcut("view.reloadOrigin")
+                }
+            }
             .animation(Motion.quick, value: tab.loading)
         }
     }

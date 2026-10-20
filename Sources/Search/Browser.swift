@@ -208,6 +208,58 @@ final class Browser: NSObject, ObservableObject {
         bookmarksOpen.toggle()
     }
 
+    // MARK: - chrome (Fork)
+
+    /// The card that arranges the row-end buttons, over the page (see
+    /// Chrome.swift).
+    @Published var arrangingChrome = false
+
+    /// Puts a chrome door in another slot. `visible` is the cluster on
+    /// screen's own order; the full one keeps its gaps — a door not shown
+    /// there comes back where it was, not at the end.
+    func moveChrome(_ part: ChromePart, to target: Int, visible: [ChromePart]) {
+        var order = prefs.chromeOrder
+        guard visible.indices.contains(target),
+              let from = order.firstIndex(of: part),
+              let destination = order.firstIndex(of: visible[target]),
+              from != destination
+        else { return }
+        order.remove(at: from)
+        // The pointer sits over the cell the dragged door had at pickup,
+        // index `destination` of the untouched order. Taking the door out
+        // shifts only the doors after it, and putting it at that index
+        // again — no correction — gives the cell back and slides the
+        // crossed doors one over, in both directions. (An off-by-one
+        // here is a door that won't land under the pointer.)
+        order.insert(part, at: destination)
+        prefs.chromeOrder = order
+    }
+
+    /// A door clicked on the layout card: its own show switch, the same
+    /// ones Settings has — the card and the settings page are two hands
+    /// on one handle, and each shows the other's turn as it happens.
+    func toggleChrome(_ part: ChromePart) {
+        // The downloads door doesn't hide — a running download needs its
+        // door — it asks for the standing button, Settings › Downloads.
+        if part == .fetch {
+            prefs.alwaysShowsDownloads.toggle()
+            return
+        }
+        // Never the last door on the row: it is where the card's own
+        // right-click hangs. (View › Edit Button Layout still opens it,
+        // so nothing is ever lost — but an empty row is a bad surprise.)
+        if part.shown(prefs, fetches),
+           !ChromePart.allCases.contains(where: { $0 != part && $0.shown(prefs, fetches) })
+        { return }
+        switch part {
+        case .fetch: break
+        case .extensions: prefs.extensionsButton.toggle()
+        case .backforward: prefs.backForwardButton.toggle()
+        case .reload: prefs.reloadButton.toggle()
+        case .bookmark: prefs.bookmarkButton.toggle()
+        }
+    }
+
     /// Another browser's bookmarks, folders and all — one profile's, or
     /// every profile's when nil — and, behind them, the icons it had for
     /// those sites, so the menu wears them from the start instead of a
