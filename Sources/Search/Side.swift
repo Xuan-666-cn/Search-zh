@@ -564,7 +564,8 @@ private struct SideFoot: View {
     /// is 26 points, with 2 between them.
     private var room: Int {
         let door: CGFloat = 26 + 2
-        var kept = 2  // the puzzle and bookmarks
+        // the puzzle and bookmarks; (Fork) bookmarks can be hidden.
+        var kept = browser.prefs.bookmarkButton ? 2 : 1
         if prefs.usesSpaces { kept += 1 }
         if FetchDoor.shows(fetches, prefs) { kept += 1 }
         let free = prefs.sideWidth - 2 * 10 + 2 - CGFloat(kept) * door

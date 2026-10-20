@@ -55,6 +55,8 @@
 "Beside the title, and on a pinned square" = "显示在标题旁，固定时显示在小方块上";
 "Letters" = "字母";
 "Site icons" = "网站图标";
+"Show the bookmarks button" = "显示书签按钮";
+"The bookmark icon at the end of the row, or at the foot of the sidebar. Off, ⇧⌘B still opens its card and the Bookmarks menu is unchanged" = "标签行末端的书签图标按钮，侧栏模式下在底部。关闭后 ⇧⌘B 仍会弹出书签卡片，「书签」菜单不受影响";
 "Show the bookmarks bar" = "显示书签栏";
 "Your bookmarks in a row above the page, folders opening as menus. It folds away with the tabs" = "书签横排在页面上方，文件夹以菜单展开。随标签页一起折叠";
 "Show how far you've read" = "显示阅读进度";

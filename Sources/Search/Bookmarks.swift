@@ -953,10 +953,18 @@ struct BookmarkDoor: View {
 
     var body: some View {
         Group {
-            if let tab = browser.active {
-                Kept(browser: browser, bookmarks: browser.bookmarks, tab: tab)
+            // (Fork) The button can be turned off in Settings. The spot
+            // stays: it is what the card below hangs from when ⇧⌘B adds a
+            // bookmark, so the shortcut keeps its popover with nothing
+            // drawn.
+            if browser.prefs.bookmarkButton {
+                if let tab = browser.active {
+                    Kept(browser: browser, bookmarks: browser.bookmarks, tab: tab)
+                } else {
+                    BookmarkDoor.door(browser, kept: false)
+                }
             } else {
-                BookmarkDoor.door(browser, kept: false)
+                Color.clear.frame(width: 0, height: 0)
             }
         }
         .popover(isPresented: $browser.bookmarksOpen, arrowEdge: arrowEdge) {

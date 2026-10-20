@@ -375,6 +375,12 @@ final class Preferences: ObservableObject {
     @Published var bookmarksBar: Bool {
         didSet { store.set(bookmarksBar, forKey: "bookmarks.bar") }
     }
+    /// (Fork) The bookmark button at the end of the row (see BookmarkDoor).
+    /// On unless turned off — the button was always there. Hidden, ⇧⌘B still
+    /// opens its card off the same spot and the Bookmarks menu is unchanged.
+    @Published var bookmarkButton: Bool {
+        didSet { store.set(bookmarkButton, forKey: "bookmark.button") }
+    }
     /// Where a link goes, at the bottom of the page while the pointer is on
     /// it (see StatusLine.swift). On unless turned off.
     @Published var showsLinks: Bool {
@@ -641,6 +647,7 @@ final class Preferences: ObservableObject {
         peekClick = store.string(forKey: "links.peekClick").flatMap(PeekClick.init(rawValue:)) ?? .shift
         littleLinks = store.bool(forKey: "links.little")
         bookmarksBar = store.bool(forKey: "bookmarks.bar")
+        bookmarkButton = store.object(forKey: "bookmark.button") as? Bool ?? true
         alwaysShowsDownloads = store.bool(forKey: "downloads.button")
         let links = store.object(forKey: "links.show") as? Bool ?? true
         showsLinks = links

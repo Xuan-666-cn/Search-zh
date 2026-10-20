@@ -478,6 +478,11 @@ struct SettingsPanel: View {
                 Segmented(options: Glyph.allCases.map { ($0, $0.title) }, selection: $prefs.glyph)
             }
             Rule()
+            // (Fork) The button itself, next to the bar it opens over.
+            Line("Show the bookmarks button", "The bookmark icon at the end of the row, or at the foot of the sidebar. Off, ⇧⌘B still opens its card and the Bookmarks menu is unchanged") {
+                Switch(on: $prefs.bookmarkButton)
+            }
+            Rule()
             Line("Show the bookmarks bar", "Your bookmarks in a row above the page, folders opening as menus. It folds away with the tabs") {
                 Switch(on: $prefs.bookmarksBar)
             }
