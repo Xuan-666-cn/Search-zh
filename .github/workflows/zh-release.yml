@@ -1,0 +1,47 @@
+name: zh release
+
+# Every push to zh builds the Chinese Search and republishes it under the
+# rolling tag zh-latest, which is where Updater.swift's feed points. The
+# installed app finds it on its own hourly check — this workflow is the
+# whole release side of the fork's update chain.
+#
+# The build is ad-hoc signed (no Developer ID): the fork's updater accepts
+# it on the archive's sha256 from the appcast, and the appcast names this
+# workflow's own upload URLs, so the loop closes without Apple's chain.
+
+on:
+  push:
+    branches: [zh]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the release bundle and its appcast
+        env:
+          SEARCH_DOWNLOAD_URL: https://github.com/${{ github.repository }}/releases/download/zh-latest
+        run: |
+          ./build.sh release dmg
+          # The appcast must name the very files being uploaded: fail early
+          # on a mismatch rather than publish a feed pointing at nothing.
+          grep -q "\"url\": \"$SEARCH_DOWNLOAD_URL/Search.zip\"" build/appcast.json
+
+      - name: Publish under the rolling tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SHA="${GITHUB_SHA:0:7}"
+          VERSION="$(tr -d '[:space:]' < VERSION)"
+          if ! gh release view zh-latest >/dev/null 2>&1; then
+            gh release create zh-latest --title "Search $VERSION (Chinese fork)" --notes ""
+          fi
+          gh release edit zh-latest \
+            --title "Search $VERSION (Chinese fork)" \
+            --notes "汉化版滚动发布。构建 $SHA，$(date -u +%F)。检查更新：打开 Search，菜单 › 检查更新…"
+          gh release upload zh-latest build/Search.zip build/Search.dmg build/appcast.json --clobber
