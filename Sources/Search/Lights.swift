@@ -17,7 +17,12 @@ final class Lights: NSObject {
     /// Where the close button's centre goes, from the window's top-left: where
     /// a unified toolbar put it, which Metrics.lights and sideLights are
     /// measured from.
-    static let centre = CGPoint(x: 26, y: 26)
+    ///
+    /// Fork: the height is the strip's middle rather than upstream's 26, which
+    /// was only ever right because the strip it was written against was twice
+    /// it. Computed, so a strip that changes cannot leave the three lights
+    /// sitting low in the row.
+    static var centre: CGPoint { CGPoint(x: 26, y: Metrics.strip / 2) }
 
     private static var kept: [ObjectIdentifier: Lights] = [:]
 

@@ -150,7 +150,11 @@ enum Metrics {
     /// traffic lights come down with the tabs — otherwise giving the row room
     /// to breathe just leaves it sitting below three buttons it used to line
     /// up with.
-    static let strip: CGFloat = 52
+    ///
+    /// Fork: upstream's 52 leaves 24 of that air over a 28-point pill; 40 keeps
+    /// 6 at each end, the same inset the pills use inside them. Lights.swift
+    /// centres the buttons on this, so the two are one change, not two.
+    static let strip: CGFloat = 40
     /// With the tabs down the side the page is a card: this far from the
     /// window's edges (and from the column, folded away), and its corners
     /// this round.
